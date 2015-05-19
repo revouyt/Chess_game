@@ -9,47 +9,62 @@ import java.util.List;
  */
 public abstract class Piece
 {
-    /**
-     * La couleur de la pièce
-     */
-    protected final Color couleur;
+      /**
+       * Le nom de la pièce
+       */
+      protected String PieceName;
 
-    /**
-     * Créer une pièce de couleur donnée
-     *
-     * @param couleur la couleur
-     */
-    protected Piece(Color couleur)
-    {
-        this.couleur = couleur;
-    }
+      /**
+       * La couleur de la pièce
+       */
+      protected final Color couleur;
 
-    /**
-     * Obtenir la couleur de la piece
-     *
-     * @return la couleur de la piece
-     */
-    public Color obtenirCouleur()
-    {
-        return this.couleur;
-    }
+      /**
+       * Créer une pièce de couleur donnée
+       *
+       * @param couleur la couleur
+       */
+      protected Piece(Color couleur)
+      {
+            this.couleur = couleur;
+      }
 
-    /**
-     * Détermine les différents movements possible à partir d'une position de
-     * départ donnée
-     *
-     * @param positionDepart La position actuelle de la pièce
-     * @return Une liste de tout les déplacements possible à partir d'une
-     *         position
-     */
-    public abstract List<Position> possibleMovements(Position positionDepart);
+      /**
+       * Obtenir le type/nom de la piece
+       *
+       * @return le type/nom
+       */
+      public String getPieceName()
+      {
+            return this.PieceName;
+      }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString()
-    {
-        return this.couleur.toString();
-    }
+      /**
+       * Obtenir la couleur de la piece
+       *
+       * @return la couleur de la piece
+       */
+      public Color obtenirCouleur()
+      {
+            return this.couleur;
+      }
+
+      /**
+       * Détermine les différents movements possible à partir d'une position de
+       * départ donnée
+       *
+       * @param positionDepart La position actuelle de la pièce
+       * @return Une liste de tout les déplacements possible à partir d'une
+       *         position
+       */
+      public abstract List<Position> possibleMovements(Position positionDepart);
+
+      /**
+       * @see java.lang.Object#toString()
+       */
+      @Override
+      public String toString()
+      {
+            return this.couleur.toString();
+      }
 }

@@ -8,6 +8,7 @@ public class AfficheEchiquier
 {
     public static void main(String[] args)
     {
+        new GameLauncher().play();
         System.out.println(new Echiquier());
     }
 
