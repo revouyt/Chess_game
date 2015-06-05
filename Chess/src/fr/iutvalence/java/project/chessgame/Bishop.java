@@ -6,9 +6,9 @@ import java.util.List;
 
 
 /**
- * Une pièce de reine
+ * Une pièce de fou
  */
-public class Reine extends Piece
+public class Bishop extends AbstractPiece
 {
       /**
        * Valeur de la coordonnée de la pièce
@@ -18,19 +18,18 @@ public class Reine extends Piece
       /**
        * La liste des différentes positions possible terme de coordonnées
        */
-      private final int[][] listPosition = { { position, 0 }, { 0, -position }, { -position, 0 },
-                  { 0, position }, { position, position }, { position, -position }, { -position, -position },
+      private final int[][] listPosition = { { position, position }, { position, -position }, { -position, -position },
                   { -position, position } };
 
       /**
-       * Créer une reine de couleur donnée
+       * Créer un fou de couleur donnée
        *
-       * @param couleur La couleur de la reine
+       * @param couleur La couleur du fou
        */
-      public Reine(Color couleur)
+      public Bishop(ColorEnum couleur)
       {
             super(couleur);
-            this.PieceName = "Reine";
+            this.PieceName = PieceType.BISHOP;
       }
 
       /**
@@ -54,8 +53,7 @@ public class Reine extends Piece
                   {
                         i = positionDepart.obtenirNumeroDeLigne() + direction[0];
                         j = positionDepart.obtenirNumeroDeColonne() + direction[1];
-                        if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES
-                                    || j >= 0)
+                        if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
                         {
                               positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                               if (positionDeFin.getPiece() != null)
@@ -83,7 +81,7 @@ public class Reine extends Piece
       @Override
       public String toString()
       {
-            return "r" + super.toString();
+            return "F" + super.toString();
       }
 
 }

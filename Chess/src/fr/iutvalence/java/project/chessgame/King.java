@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Une pièce de roi
  */
-public class Roi extends Piece
+public class King extends AbstractPiece
 {
       /**
        * Default : 0 when it hasn't moved yet, 1 when it already moved
@@ -23,30 +23,29 @@ public class Roi extends Piece
       /**
        * Les listes des différentes positions possible en terme de coordonnées
        */
-      private final int[][] listPositionDiagonale = { { position, position }, { position, -position },
-                  { -position, -position }, { -position, position } };
+      private final int[][] listPositionDiagonale = { { position, position }, { position, -position }, { -position, -position },
+                  { -position, position } };
 
       private final int[][] listPositionPion = { { 1, 1 }, { 1, -1 } };
 
-      private final int[][] listPositionLigne = { { position, 0 }, { 0, -position }, { -position, 0 },
-                  { 0, position } };
+      private final int[][] listPositionLigne = { { position, 0 }, { 0, -position }, { -position, 0 }, { 0, position } };
 
-      private final int[][] listPositionCavalier = { { 2, -1 }, { 2, 1 }, { -2, -1 }, { -2, 1 }, { 1, -2 },
-                  { 1, 2 }, { -1, -2 }, { -1, 2 } };
+      private final int[][] listPositionCavalier = { { 2, -1 }, { 2, 1 }, { -2, -1 }, { -2, 1 }, { 1, -2 }, { 1, 2 }, { -1, -2 }, { -1, 2 } };
 
-      private final int[][] listPositionRoi = { { 1, 0 }, { 1, 1 }, { 0, 1 }, { -1, -1 }, { -1, 0 },
-                  { -1, -1 }, { 0, -1 }, { 1, -1 } };
+      private final int[][] listPositionRoi = { { 1, 0 }, { 1, 1 }, { 0, 1 }, { -1, -1 }, { -1, 0 }, { -1, -1 }, { 0, -1 }, { 1, -1 } };
+
+      private final int[][] listPositionRoque = { { 0, -2 }, { 0, 2 } };
 
       /**
        * Créer un roi de couleur donnée
        *
        * @param couleur La couleur du roi
        */
-      public Roi(Color couleur)
+      public King(ColorEnum couleur)
       {
             super(couleur);
             this.hasAlreadyMove = false;
-            this.PieceName = "Roi";
+            this.PieceName = PieceType.KING;
       }
 
       /**
@@ -68,7 +67,7 @@ public class Roi extends Piece
                   if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
                   {
                         squareTest = Echiquier.square.get(new Position(i, j));
-                        if (squareTest.getPiece().getPieceName() == "Pion")
+                        if (squareTest.getPiece().getPieceName() == PieceType.PAWN)
                         {
                               return true;
                         }
@@ -84,8 +83,8 @@ public class Roi extends Piece
                         squareTest = Echiquier.square.get(new Position(i, j));
                         for (position = 1; position < 8; position++)
                         {
-                              if (squareTest.getPiece().getPieceName() == "Fou"
-                                          && squareTest.getPiece().getPieceName() == "Reine")
+                              if (squareTest.getPiece().getPieceName() == PieceType.BISHOP
+                                          && squareTest.getPiece().getPieceName() == PieceType.QUEEN)
                               {
                                     return true;
                               }
@@ -103,8 +102,8 @@ public class Roi extends Piece
                         squareTest = Echiquier.square.get(new Position(i, j));
                         for (position = 1; position < 8; position++)
                         {
-                              if (squareTest.getPiece().getPieceName() == "Tour"
-                                          && squareTest.getPiece().getPieceName() == "Reine")
+                              if (squareTest.getPiece().getPieceName() == PieceType.ROOK
+                                          && squareTest.getPiece().getPieceName() == PieceType.QUEEN)
                               {
                                     return true;
                               }
@@ -120,7 +119,7 @@ public class Roi extends Piece
                   if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
                   {
                         squareTest = Echiquier.square.get(new Position(i, j));
-                        if (squareTest.getPiece().getPieceName() == "Cavalier")
+                        if (squareTest.getPiece().getPieceName() == PieceType.KNIGHT)
                         {
                               return true;
                         }
@@ -149,10 +148,24 @@ public class Roi extends Piece
                   i = positionDepart.obtenirNumeroDeLigne() + direction[0];
                   j = positionDepart.obtenirNumeroDeColonne() + direction[1];
                   newPosition = new Position(i, j);
-                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0
-                              && !isCheck(newPosition))
+                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0 && !isCheck(newPosition))
                   {
                         possibleMovement.add(newPosition);
+                  }
+            }
+            if (!this.hasAlreadyMove)
+            {
+                  int indiceRoque = -1;
+                  for (int[] direction : this.listPositionRoque)
+                  {
+                        indiceRoque++;
+                        i = positionDepart.obtenirNumeroDeLigne() + direction[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction[1];
+                        newPosition = new Position(i, j);
+                        if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j + listPositionPion[1][indiceRoque])))
+                        {
+                              possibleMovement.add(newPosition);
+                        }
                   }
             }
             return possibleMovement;

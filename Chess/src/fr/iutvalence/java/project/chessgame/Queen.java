@@ -6,15 +6,10 @@ import java.util.List;
 
 
 /**
- * Une pièce de tour
+ * Une pièce de reine
  */
-public class Tour extends Piece
+public class Queen extends AbstractPiece
 {
-      /**
-       * Default : 0 when it hasn't moved yet, 1 when it already moved
-       */
-      private boolean hasAlreadyMove;
-
       /**
        * Valeur de la coordonnée de la pièce
        */
@@ -23,19 +18,18 @@ public class Tour extends Piece
       /**
        * La liste des différentes positions possible terme de coordonnées
        */
-      private final int[][] listPosition = { { position, 0 }, { 0, -position }, { -position, 0 },
-                  { 0, position } };
+      private final int[][] listPosition = { { position, 0 }, { 0, -position }, { -position, 0 }, { 0, position }, { position, position },
+                  { position, -position }, { -position, -position }, { -position, position } };
 
       /**
-       * Créer une tour de couleur donnée
+       * Créer une reine de couleur donnée
        *
-       * @param couleur La couleur du tour
+       * @param couleur La couleur de la reine
        */
-      public Tour(Color couleur)
+      public Queen(ColorEnum couleur)
       {
             super(couleur);
-            this.hasAlreadyMove = false;
-            this.PieceName = "Tour";
+            this.PieceName = PieceType.QUEEN;
       }
 
       /**
@@ -59,8 +53,7 @@ public class Tour extends Piece
                   {
                         i = positionDepart.obtenirNumeroDeLigne() + direction[0];
                         j = positionDepart.obtenirNumeroDeColonne() + direction[1];
-                        if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES
-                                    || j >= 0)
+                        if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
                         {
                               positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                               if (positionDeFin.getPiece() != null)
@@ -88,7 +81,7 @@ public class Tour extends Piece
       @Override
       public String toString()
       {
-            return "T" + super.toString();
+            return "r" + super.toString();
       }
 
 }

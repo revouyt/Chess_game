@@ -8,23 +8,22 @@ import java.util.List;
 /**
  * Une pièce de cavalier
  */
-public class Cavalier extends Piece
+public class Knight extends AbstractPiece
 {
       /**
        * La liste des différentes positions possible terme de coordonnées
        */
-      private final int[][] listPosition = { { 2, -1 }, { 2, 1 }, { -2, -1 }, { -2, 1 }, { 1, -2 }, { 1, 2 },
-                  { -1, -2 }, { -1, 2 } };
+      private final int[][] listPosition = { { 2, -1 }, { 2, 1 }, { -2, -1 }, { -2, 1 }, { 1, -2 }, { 1, 2 }, { -1, -2 }, { -1, 2 } };
 
       /**
        * Créer un cavalier de couleur donnée
        *
        * @param couleur La couleur du cavalier
        */
-      public Cavalier(Color couleur)
+      public Knight(ColorEnum couleur)
       {
             super(couleur);
-            this.PieceName = "Cavalier";
+            this.PieceName = PieceType.KNIGHT;
       }
 
       /**

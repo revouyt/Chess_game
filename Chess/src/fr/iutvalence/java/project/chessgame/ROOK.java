@@ -6,10 +6,16 @@ import java.util.List;
 
 
 /**
- * Une pièce de fou
+ * Une pièce de tour
  */
-public class Fou extends Piece
+public class ROOK extends AbstractPiece
 {
+      /**
+       * Default : 0 when it hasn't moved yet, 1 when it already moved
+       */
+      @SuppressWarnings("unused")
+      private boolean hasAlreadyMove;
+
       /**
        * Valeur de la coordonnée de la pièce
        */
@@ -18,18 +24,18 @@ public class Fou extends Piece
       /**
        * La liste des différentes positions possible terme de coordonnées
        */
-      private final int[][] listPosition = { { position, position }, { position, -position },
-                  { -position, -position }, { -position, position } };
+      private final int[][] listPosition = { { position, 0 }, { 0, -position }, { -position, 0 }, { 0, position } };
 
       /**
-       * Créer un fou de couleur donnée
+       * Créer une tour de couleur donnée
        *
-       * @param couleur La couleur du fou
+       * @param couleur La couleur du tour
        */
-      public Fou(Color couleur)
+      public ROOK(ColorEnum couleur)
       {
             super(couleur);
-            this.PieceName = "Fou";
+            this.hasAlreadyMove = false;
+            this.PieceName = PieceType.ROOK;
       }
 
       /**
@@ -53,8 +59,7 @@ public class Fou extends Piece
                   {
                         i = positionDepart.obtenirNumeroDeLigne() + direction[0];
                         j = positionDepart.obtenirNumeroDeColonne() + direction[1];
-                        if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES
-                                    || j >= 0)
+                        if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
                         {
                               positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                               if (positionDeFin.getPiece() != null)
@@ -82,7 +87,7 @@ public class Fou extends Piece
       @Override
       public String toString()
       {
-            return "F" + super.toString();
+            return "T" + super.toString();
       }
 
 }

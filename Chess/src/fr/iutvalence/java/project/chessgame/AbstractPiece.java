@@ -7,24 +7,24 @@ import java.util.List;
 /**
  * Une pièce type
  */
-public abstract class Piece
+public abstract class AbstractPiece
 {
       /**
        * Le nom de la pièce
        */
-      protected String PieceName;
+      protected PieceType PieceName;
 
       /**
        * La couleur de la pièce
        */
-      protected final Color couleur;
+      protected final ColorEnum couleur;
 
       /**
        * Créer une pièce de couleur donnée
        *
        * @param couleur la couleur
        */
-      protected Piece(Color couleur)
+      protected AbstractPiece(ColorEnum couleur)
       {
             this.couleur = couleur;
       }
@@ -34,7 +34,7 @@ public abstract class Piece
        *
        * @return le type/nom
        */
-      public String getPieceName()
+      public PieceType getPieceName()
       {
             return this.PieceName;
       }
@@ -44,7 +44,7 @@ public abstract class Piece
        *
        * @return la couleur de la piece
        */
-      public Color obtenirCouleur()
+      public ColorEnum obtenirCouleur()
       {
             return this.couleur;
       }

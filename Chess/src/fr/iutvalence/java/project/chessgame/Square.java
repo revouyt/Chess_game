@@ -9,19 +9,19 @@ public class Square
     /**
      * La couleur de la case (Color.BLANC ou Color.NOIR)
      */
-    private final Color color;
+    private final ColorEnum color;
 
     /**
      * Le pièce posée sur la case, <tt>null</tt> si il n'y a pas de pièce
      */
-    private Piece piece;
+    private AbstractPiece piece;
 
     /**
      * Créer une case de couleur donnée et sans pièce
      * 
      * @param couleur La couleur de la case
      */
-    public Square(Color couleur)
+    public Square(ColorEnum couleur)
     {
         this.color = couleur;
         this.piece = null;
@@ -32,7 +32,7 @@ public class Square
      * 
      * @return la couleur de la case
      */
-    public Color getCouleur()
+    public ColorEnum getCouleur()
     {
         return this.color;
     }
@@ -43,7 +43,7 @@ public class Square
      * @return la pièce posée sur la case, ou <tt>null</tt> si il n'y a pas de
      *         pièce
      */
-    public Piece getPiece()
+    public AbstractPiece getPiece()
     {
         return this.piece;
     }
@@ -53,9 +53,9 @@ public class Square
      * 
      * @return la pièce occupant précédemment la case (si elle existait)
      */
-    public Piece removePiece()
+    public AbstractPiece removePiece()
     {
-        Piece piecePrecedente = this.piece;
+        AbstractPiece piecePrecedente = this.piece;
         this.piece = null;
         return piecePrecedente;
     }
@@ -66,7 +66,7 @@ public class Square
      * 
      * @param piece la pièce à poser
      */
-    public void setPiece(Piece piece)
+    public void setPiece(AbstractPiece piece)
     {
         this.piece = piece;
     }

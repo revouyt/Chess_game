@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Une pièce de pion
  */
-public class Pion extends Piece
+public class Pawn extends AbstractPiece
 {
       /**
        * Default : 0 when it hasn't moved yet, 1 when it already moved
@@ -32,11 +32,11 @@ public class Pion extends Piece
        *
        * @param couleur La couleur du pion
        */
-      public Pion(Color couleur)
+      public Pawn(ColorEnum couleur)
       {
             super(couleur);
             this.hasAlreadyMove = false;
-            this.PieceName = "Pion";
+            this.PieceName = PieceType.PAWN;
       }
 
       /**

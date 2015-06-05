@@ -1,5 +1,7 @@
 package fr.iutvalence.java.project.chessgame;
 
+import fr.iutvalence.java.project.gui.GameGUI;
+
 
 /**
  * The game launcher
@@ -9,6 +11,11 @@ package fr.iutvalence.java.project.chessgame;
  */
 public class GameLauncher
 {
+      public static void main(String[] args)
+      {
+            new GameGUI().setVisible(true);
+      }
+
       /**
        * Game's board
        */
