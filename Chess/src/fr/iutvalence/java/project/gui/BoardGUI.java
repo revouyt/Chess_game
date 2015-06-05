@@ -98,6 +98,19 @@ public class BoardGUI extends JPanel implements ActionListener
       @Override
       public void actionPerformed(ActionEvent e)
       {
-
+            if (this.imageCourante == null)
+            {
+                  this.imageCourante = ((SquareButton) e.getSource()).getPiece();
+                  ((SquareButton) e.getSource()).setPiece(null);
+            }
+            else
+            {
+                  if (((SquareButton) e.getSource()).getPiece() == null)
+                  {
+                        ((SquareButton) e.getSource()).setPiece(this.imageCourante);
+                        this.imageCourante = null;
+                        ((SquareButton) e.getSource()).repaint();
+                  }
+            }
       }
 }
