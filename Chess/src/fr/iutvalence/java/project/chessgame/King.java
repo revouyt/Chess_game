@@ -26,7 +26,9 @@ public class King extends AbstractPiece
       private final int[][] listPositionDiagonale = { { position, position }, { position, -position }, { -position, -position },
                   { -position, position } };
 
-      private final int[][] listPositionPion = { { 1, 1 }, { 1, -1 } };
+      private final int[][] listPositionPionBlanc = { { -1, 1 }, { -1, -1 } };
+
+      private final int[][] listPositionPionNoir = { { 1, 1 }, { 1, -1 } };
 
       private final int[][] listPositionLigne = { { position, 0 }, { 0, -position }, { -position, 0 }, { 0, position } };
 
@@ -34,7 +36,9 @@ public class King extends AbstractPiece
 
       private final int[][] listPositionRoi = { { 1, 0 }, { 1, 1 }, { 0, 1 }, { -1, -1 }, { -1, 0 }, { -1, -1 }, { 0, -1 }, { 1, -1 } };
 
-      private final int[][] listPositionRoque = { { 0, -2 }, { 0, 2 } };
+      private final int[][] listPositionRoqueGauche = { { 0, -2 } };
+
+      private final int[][] listPositionRoqueDroite = { { 0, 2 } };
 
       /**
        * Créer un roi de couleur donnée
@@ -45,7 +49,7 @@ public class King extends AbstractPiece
       {
             super(couleur);
             this.hasAlreadyMove = false;
-            this.PieceName = PieceType.KING;
+            this.Piecetype = PieceType.KING;
       }
 
       /**
@@ -60,72 +64,147 @@ public class King extends AbstractPiece
             int i;
             int j;
             /* boucle-test des pions */
-            for (int[] direction1 : this.listPositionPion)
+            if (this.couleur == ColorEnum.BLACK)
             {
-                  i = positionDepart.obtenirNumeroDeLigne() + direction1[0];
-                  j = positionDepart.obtenirNumeroDeColonne() + direction1[1];
-                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
+                  for (int[] direction1 : this.listPositionPionBlanc)
                   {
-                        squareTest = Echiquier.square.get(new Position(i, j));
-                        if (squareTest.getPiece().getPieceName() == PieceType.PAWN)
+                        i = positionDepart.obtenirNumeroDeLigne() + direction1[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction1[1];
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
-                              return true;
-                        }
-                  }
-            }
-            /* boucle-test des diagonales Fou */
-            for (int[] direction2 : this.listPositionDiagonale)
-            {
-                  i = positionDepart.obtenirNumeroDeLigne() + direction2[0];
-                  j = positionDepart.obtenirNumeroDeColonne() + direction2[1];
-                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
-                  {
-                        squareTest = Echiquier.square.get(new Position(i, j));
-                        for (position = 1; position < 8; position++)
-                        {
-                              if (squareTest.getPiece().getPieceName() == PieceType.BISHOP
-                                          && squareTest.getPiece().getPieceName() == PieceType.QUEEN)
+                              squareTest = Echiquier.square.get(new Position(i, j));
+                              if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_PAWN)
                               {
                                     return true;
                               }
                         }
                   }
-            }
 
-            /* boucle-test des lignes Tour */
-            for (int[] direction3 : this.listPositionLigne)
-            {
-                  i = positionDepart.obtenirNumeroDeLigne() + direction3[0];
-                  j = positionDepart.obtenirNumeroDeColonne() + direction3[1];
-                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
+                  /* boucle-test des diagonales Fou */
+                  for (int[] direction2 : this.listPositionDiagonale)
                   {
-                        squareTest = Echiquier.square.get(new Position(i, j));
-                        for (position = 1; position < 8; position++)
+                        i = positionDepart.obtenirNumeroDeLigne() + direction2[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction2[1];
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
-                              if (squareTest.getPiece().getPieceName() == PieceType.ROOK
-                                          && squareTest.getPiece().getPieceName() == PieceType.QUEEN)
+                              squareTest = Echiquier.square.get(new Position(i, j));
+                              for (this.position = 1; this.position < 8; this.position++)
+                              {
+                                    if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_BISHOP
+                                                || squareTest.getPiece().getPieceName() == ListPieces.WHITE_QUEEN)
+                                    {
+                                          return true;
+                                    }
+                              }
+                        }
+                  }
+
+                  /* boucle-test des lignes Tour */
+                  for (int[] direction3 : this.listPositionLigne)
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() + direction3[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction3[1];
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
+                        {
+                              squareTest = Echiquier.square.get(new Position(i, j));
+                              for (this.position = 1; this.position < 8; this.position++)
+                              {
+                                    if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_ROOK
+                                                || squareTest.getPiece().getPieceName() == ListPieces.WHITE_QUEEN)
+                                    {
+                                          return true;
+                                    }
+                              }
+                        }
+                  }
+
+                  /* boucle-test des cavaliers */
+                  for (int[] direction4 : this.listPositionCavalier)
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() + direction4[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction4[1];
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
+                        {
+                              squareTest = Echiquier.square.get(new Position(i, j));
+                              if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_KNIGHT)
                               {
                                     return true;
                               }
                         }
                   }
+                  return false;
             }
-
-            /* boucle-test des cavaliers */
-            for (int[] direction4 : this.listPositionCavalier)
+            else
             {
-                  i = positionDepart.obtenirNumeroDeLigne() + direction4[0];
-                  j = positionDepart.obtenirNumeroDeColonne() + direction4[1];
-                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
+
+                  /* boucle-test des pions */
+                  for (int[] direction1 : this.listPositionPionNoir)
                   {
-                        squareTest = Echiquier.square.get(new Position(i, j));
-                        if (squareTest.getPiece().getPieceName() == PieceType.KNIGHT)
+                        i = positionDepart.obtenirNumeroDeLigne() + direction1[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction1[1];
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
-                              return true;
+                              squareTest = Echiquier.square.get(new Position(i, j));
+                              if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_PAWN)
+                              {
+                                    return true;
+                              }
                         }
                   }
+                  /* boucle-test des diagonales Fou */
+                  for (int[] direction2 : this.listPositionDiagonale)
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() + direction2[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction2[1];
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
+                        {
+                              squareTest = Echiquier.square.get(new Position(i, j));
+                              for (this.position = 1; this.position < 8; this.position++)
+                              {
+                                    if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_BISHOP
+                                                || squareTest.getPiece().getPieceName() == ListPieces.BLACK_QUEEN)
+                                    {
+                                          return true;
+                                    }
+                              }
+                        }
+                  }
+
+                  /* boucle-test des lignes Tour */
+                  for (int[] direction3 : this.listPositionLigne)
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() + direction3[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction3[1];
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
+                        {
+                              squareTest = Echiquier.square.get(new Position(i, j));
+                              for (this.position = 1; this.position < 8; this.position++)
+                              {
+                                    if (squareTest.getPiece().getPieceType() == PieceType.ROOK
+                                                || squareTest.getPiece().getPieceName() == ListPieces.BLACK_QUEEN)
+                                    {
+                                          return true;
+                                    }
+                              }
+                        }
+                  }
+
+                  /* boucle-test des cavaliers */
+                  for (int[] direction4 : this.listPositionCavalier)
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() + direction4[0];
+                        j = positionDepart.obtenirNumeroDeColonne() + direction4[1];
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
+                        {
+                              squareTest = Echiquier.square.get(new Position(i, j));
+                              if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_KNIGHT)
+                              {
+                                    return true;
+                              }
+                        }
+                  }
+                  return false;
             }
-            return false;
       }
 
       /**
@@ -141,30 +220,79 @@ public class King extends AbstractPiece
       {
             List<Position> possibleMovement = new ArrayList<Position>();
             Position newPosition;
+            AbstractPiece tour;
             int i, j;
             /* boucle des déplacements possible du roi */
             for (int[] direction : this.listPositionRoi)
             {
                   i = positionDepart.obtenirNumeroDeLigne() + direction[0];
                   j = positionDepart.obtenirNumeroDeColonne() + direction[1];
-                  newPosition = new Position(i, j);
-                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0 && !isCheck(newPosition))
+                  if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                   {
-                        possibleMovement.add(newPosition);
-                  }
-            }
-            if (!this.hasAlreadyMove)
-            {
-                  int indiceRoque = -1;
-                  for (int[] direction : this.listPositionRoque)
-                  {
-                        indiceRoque++;
-                        i = positionDepart.obtenirNumeroDeLigne() + direction[0];
-                        j = positionDepart.obtenirNumeroDeColonne() + direction[1];
                         newPosition = new Position(i, j);
-                        if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j + listPositionPion[1][indiceRoque])))
+                        if (!isCheck(newPosition))
                         {
                               possibleMovement.add(newPosition);
+                        }
+                  }
+            }
+            // roque
+            if (!this.hasAlreadyMove)
+            {
+                  if (this.couleur == ColorEnum.WHITE)
+                  {
+                        // roque de droite
+                        i = positionDepart.obtenirNumeroDeLigne() + listPositionRoqueDroite[0][0];
+                        j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueDroite[0][1];
+                        newPosition = new Position(i, j);
+                        tour = Echiquier.square.get(new Position(i, j + 1)).getPiece();
+                        if (tour.getPieceName() == ListPieces.WHITE_ROOK && !tour.hasAlreadyMove)
+                        {
+                              if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j - 1)))
+                              {
+                                    possibleMovement.add(newPosition);
+                              }
+                        }
+
+                        // roque de gauche
+                        i = positionDepart.obtenirNumeroDeLigne() + listPositionRoqueGauche[0][0];
+                        j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueGauche[0][1];
+                        newPosition = new Position(i, j);
+                        tour = Echiquier.square.get(new Position(i, j - 2)).getPiece();
+                        if (tour.getPieceName() == ListPieces.WHITE_ROOK && !tour.hasAlreadyMove)
+                        {
+                              if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j + 1)))
+                              {
+                                    possibleMovement.add(newPosition);
+                              }
+                        }
+                  }
+                  else
+                  {
+                        // roque de droite
+                        i = positionDepart.obtenirNumeroDeLigne() + listPositionRoqueDroite[0][0];
+                        j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueDroite[0][1];
+                        newPosition = new Position(i, j);
+                        tour = Echiquier.square.get(new Position(i, j + 1)).getPiece();
+                        if (tour.getPieceName() == ListPieces.WHITE_ROOK && !tour.hasAlreadyMove)
+                        {
+                              if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j - 1)))
+                              {
+                                    possibleMovement.add(newPosition);
+                              }
+                        }
+
+                        // roque de gauche
+                        i = positionDepart.obtenirNumeroDeLigne() + listPositionRoqueGauche[0][0];
+                        j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueGauche[0][1];
+                        newPosition = new Position(i, j);
+                        tour = Echiquier.square.get(new Position(i, j - 2)).getPiece();
+                        if (tour.getPieceName() == ListPieces.WHITE_ROOK && !tour.hasAlreadyMove)
+                        {
+                              if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j + 1)))
+                              {
+                                    possibleMovement.add(newPosition);
+                              }
                         }
                   }
             }

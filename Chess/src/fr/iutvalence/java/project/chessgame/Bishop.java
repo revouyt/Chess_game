@@ -29,7 +29,7 @@ public class Bishop extends AbstractPiece
       public Bishop(ColorEnum couleur)
       {
             super(couleur);
-            this.PieceName = PieceType.BISHOP;
+            this.Piecetype = PieceType.BISHOP;
       }
 
       /**

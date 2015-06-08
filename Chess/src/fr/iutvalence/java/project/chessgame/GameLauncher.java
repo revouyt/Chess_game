@@ -1,5 +1,6 @@
 package fr.iutvalence.java.project.chessgame;
 
+
 import fr.iutvalence.java.project.gui.GameGUI;
 
 
@@ -13,6 +14,7 @@ public class GameLauncher
 {
       public static void main(String[] args)
       {
+            new Echiquier();
             new GameGUI().setVisible(true);
       }
 

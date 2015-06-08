@@ -11,12 +11,6 @@ import java.util.List;
 public class ROOK extends AbstractPiece
 {
       /**
-       * Default : 0 when it hasn't moved yet, 1 when it already moved
-       */
-      @SuppressWarnings("unused")
-      private boolean hasAlreadyMove;
-
-      /**
        * Valeur de la coordonnée de la pièce
        */
       private int position;
@@ -34,8 +28,7 @@ public class ROOK extends AbstractPiece
       public ROOK(ColorEnum couleur)
       {
             super(couleur);
-            this.hasAlreadyMove = false;
-            this.PieceName = PieceType.ROOK;
+            this.Piecetype = PieceType.ROOK;
       }
 
       /**

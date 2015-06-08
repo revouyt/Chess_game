@@ -29,7 +29,7 @@ public class Queen extends AbstractPiece
       public Queen(ColorEnum couleur)
       {
             super(couleur);
-            this.PieceName = PieceType.QUEEN;
+            this.Piecetype = PieceType.QUEEN;
       }
 
       /**

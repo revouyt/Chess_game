@@ -5,18 +5,34 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JButton;
+import fr.iutvalence.java.project.chessgame.Position;
 
 
 public class SquareButton extends JButton
 {
       private Color hoverColor;
 
+      public boolean isSelected = false;
+
       private Image piece;
 
-      public SquareButton()
+      private Position position;
+
+      public SquareButton(Color backGround, int lign, int column)
       {
             super.setContentAreaFilled(false);
             this.piece = null;
+            this.position = new Position(lign, column);
+            this.setBackground(backGround);
+            this.hoverColor = getBackground().darker();
+      }
+
+      /**
+       * @return the hoverColor
+       */
+      public Color getHoverColor()
+      {
+            return hoverColor;
       }
 
       /**
@@ -24,7 +40,15 @@ public class SquareButton extends JButton
        */
       public Image getPiece()
       {
-            return piece;
+            return this.piece;
+      }
+
+      /**
+       * @return the position
+       */
+      public Position getPosition()
+      {
+            return position;
       }
 
       @Override
@@ -34,10 +58,14 @@ public class SquareButton extends JButton
              * if (getModel().isPressed()) { g.setColor(pressedBackgroundColor);
              * } else
              */
+            super.paintComponent(g);
             if (getModel().isRollover())
             {
-                  this.hoverColor = getBackground().darker();
                   g.setColor(hoverColor);
+            }
+            else if (this.isSelected)
+            {
+                  g.setColor(Color.GREEN);
             }
             else
             {
@@ -45,7 +73,15 @@ public class SquareButton extends JButton
             }
             g.fillRect(0, 0, getWidth(), getHeight());
             g.drawImage(piece, 0, 0, getWidth(), getHeight(), null);
-            // super.paintComponent(g);
+
+      }
+
+      /**
+       * @param hoverColor the hoverColor to set
+       */
+      public void setHoverColor(Color hoverColor)
+      {
+            this.hoverColor = hoverColor;
       }
 
       /**

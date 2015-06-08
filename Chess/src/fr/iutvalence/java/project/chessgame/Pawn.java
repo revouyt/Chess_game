@@ -11,11 +11,6 @@ import java.util.List;
 public class Pawn extends AbstractPiece
 {
       /**
-       * Default : 0 when it hasn't moved yet, 1 when it already moved
-       */
-      private boolean hasAlreadyMove;
-
-      /**
        * La liste des différentes positions possible terme de coordonnées pour
        * un pion (ici une seule case)
        */
@@ -35,8 +30,7 @@ public class Pawn extends AbstractPiece
       public Pawn(ColorEnum couleur)
       {
             super(couleur);
-            this.hasAlreadyMove = false;
-            this.PieceName = PieceType.PAWN;
+            this.Piecetype = PieceType.PAWN;
       }
 
       /**
@@ -57,9 +51,16 @@ public class Pawn extends AbstractPiece
             int i, j;
             for (int[] direction : listPosition)
             {
-                  i = positionDepart.obtenirNumeroDeLigne() + direction[0];
+                  if (this.couleur == ColorEnum.BLACK)
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() + direction[0];
+                  }
+                  else
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() - direction[0];
+                  }
                   j = positionDepart.obtenirNumeroDeColonne() + direction[1];
-                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
+                  if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                   {
                         positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                         if (positionDeFin.getPiece() != null)
@@ -69,20 +70,37 @@ public class Pawn extends AbstractPiece
                         else
                         {
                               possibleMovement.add(newPosition);
-                              i = positionDepart.obtenirNumeroDeLigne() + 2;
-                              positionDeFin2 = Echiquier.square.get(newPosition = new Position(i, j));
-                              if (!this.hasAlreadyMove && positionDeFin2.getPiece() != null)
+                              if (this.couleur == ColorEnum.BLACK)
                               {
-                                    possibleMovement.add(newPosition);
+                                    i = positionDepart.obtenirNumeroDeLigne() + 2;
+                              }
+                              else
+                              {
+                                    i = positionDepart.obtenirNumeroDeLigne() - 2;
+                              }
+                              if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES)
+                              {
+                                    positionDeFin2 = Echiquier.square.get(newPosition = new Position(i, j));
+                                    if (!this.hasAlreadyMove && positionDeFin2.getPiece() == null)
+                                    {
+                                          possibleMovement.add(newPosition);
+                                    }
                               }
                         }
                   }
             }
             for (int[] direction2 : listPosition2)
             {
-                  i = positionDepart.obtenirNumeroDeLigne() + direction2[0];
+                  if (this.couleur == ColorEnum.BLACK)
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() + direction2[0];
+                  }
+                  else
+                  {
+                        i = positionDepart.obtenirNumeroDeLigne() - direction2[0];
+                  }
                   j = positionDepart.obtenirNumeroDeColonne() + direction2[1];
-                  if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
+                  if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                   {
                         positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                         if (positionDeFin.getPiece() == null)

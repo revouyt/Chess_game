@@ -3,14 +3,11 @@ package fr.iutvalence.java.project.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.util.HashMap;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import fr.iutvalence.java.project.chessgame.Echiquier;
-import fr.iutvalence.java.project.chessgame.Position;
 
 
 public class GameGUI extends JFrame
@@ -18,8 +15,6 @@ public class GameGUI extends JFrame
       // attributs
 
       static final int WIDTH = 350, HEIGHT = 350;
-
-      private HashMap<Position, JButton> pieceImage = new HashMap<Position, JButton>();
 
       private JPanel echiquier, annexe;
 
@@ -31,7 +26,7 @@ public class GameGUI extends JFrame
       {
             // Affichage de la fenêtre
             this.setTitle("jeu d'échecs");
-            this.setSize(1500, 1100);
+            this.setSize(700, 700);
             this.setResizable(true);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setAlwaysOnTop(true);
@@ -45,8 +40,7 @@ public class GameGUI extends JFrame
 
             // Affichage de l'annexe
             this.annexe = new JPanel();
-            this.annexe.add(new JTextField(
-                        "yololollololoollolloollolloollolloollolloollolloollolloollolloollolloollolloollolloollolloollolo"));
+            this.annexe.add(new JTextField("yololollololoollollllolloollolloollolloollolloollolloollolloollolo"));
             this.add(annexe, BorderLayout.EAST);
       }
 }
