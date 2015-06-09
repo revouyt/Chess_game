@@ -30,31 +30,22 @@ public class King extends AbstractPiece
        */
       public final static Position ROQUE4 = new Position(7, 6);
 
-      /**
-       * Default : 0 when it hasn't moved yet, 1 when it already moved
-       */
-      private boolean hasAlreadyMove;
-
-      /**
-       * Valeur de la coordonnée de la pièce
-       */
-      private int position = 1;
+      private Position kingPosition;
 
       /**
        * Les listes des différentes positions possible en terme de coordonnées
        */
-      private final int[][] listPositionDiagonale = { { position, position }, { position, -position }, { -position, -position },
-                  { -position, position } };
+      private final int[][] listPositionDiagonale = { { 1, 1 }, { 1, -1 }, { -1, -1 }, { -1, 1 } };
 
-      private final int[][] listPositionPionBlanc = { { -1, 1 }, { -1, -1 } };
+      private final int[][] listPositionPionBlanc = { { 1, 1 }, { 1, -1 } };
 
-      private final int[][] listPositionPionNoir = { { 1, 1 }, { 1, -1 } };
+      private final int[][] listPositionPionNoir = { { -1, 1 }, { -1, -1 } };
 
-      private final int[][] listPositionLigne = { { position, 0 }, { 0, -position }, { -position, 0 }, { 0, position } };
+      private final int[][] listPositionLigne = { { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 } };
 
       private final int[][] listPositionCavalier = { { 2, -1 }, { 2, 1 }, { -2, -1 }, { -2, 1 }, { 1, -2 }, { 1, 2 }, { -1, -2 }, { -1, 2 } };
 
-      private final int[][] listPositionRoi = { { 1, 0 }, { 1, 1 }, { 0, 1 }, { -1, -1 }, { -1, 0 }, { -1, -1 }, { 0, -1 }, { 1, -1 } };
+      private final int[][] listPositionRoi = { { 1, 0 }, { 1, 1 }, { 0, 1 }, { -1, 1 }, { -1, 0 }, { -1, -1 }, { 0, -1 }, { 1, -1 } };
 
       private final int[][] listPositionRoqueGauche = { { 0, -2 } };
 
@@ -80,13 +71,18 @@ public class King extends AbstractPiece
             }
       }
 
+      public Position getKingPosition()
+      {
+            return this.kingPosition;
+      }
+
       /**
        * Determine if there is check
        *
-       * @param positionDepart the position of the king
+       * @param position the position of the king
        * @return true if the square is under attack
        */
-      private boolean isCheck(Position positionDepart)
+      public boolean isCheck(Position position)
       {
             Square squareTest;
             int i;
@@ -96,8 +92,8 @@ public class King extends AbstractPiece
                   /* boucle-test des Pions */
                   for (int[] direction1 : this.listPositionPionBlanc)
                   {
-                        i = positionDepart.obtenirNumeroDeLigne() + direction1[0];
-                        j = positionDepart.obtenirNumeroDeColonne() + direction1[1];
+                        i = position.obtenirNumeroDeLigne() + direction1[0];
+                        j = position.obtenirNumeroDeColonne() + direction1[1];
                         if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               squareTest = Echiquier.square.get(new Position(i, j));
@@ -117,8 +113,8 @@ public class King extends AbstractPiece
                   /* boucle-test des pions */
                   for (int[] direction1 : this.listPositionPionNoir)
                   {
-                        i = positionDepart.obtenirNumeroDeLigne() + direction1[0];
-                        j = positionDepart.obtenirNumeroDeColonne() + direction1[1];
+                        i = position.obtenirNumeroDeLigne() + direction1[0];
+                        j = position.obtenirNumeroDeColonne() + direction1[1];
                         if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               squareTest = Echiquier.square.get(new Position(i, j));
@@ -127,10 +123,6 @@ public class King extends AbstractPiece
                                     if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_PAWN)
                                     {
                                           return true;
-                                    }
-                                    else
-                                    {
-                                          break;
                                     }
                               }
                         }
@@ -141,8 +133,8 @@ public class King extends AbstractPiece
             {
                   for (int compteurDirection = 1; compteurDirection < 8; compteurDirection++)
                   {
-                        i = positionDepart.obtenirNumeroDeLigne() + direction2[0] * compteurDirection;
-                        j = positionDepart.obtenirNumeroDeColonne() + direction2[1] * compteurDirection;
+                        i = position.obtenirNumeroDeLigne() + direction2[0] * compteurDirection;
+                        j = position.obtenirNumeroDeColonne() + direction2[1] * compteurDirection;
                         if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               squareTest = Echiquier.square.get(new Position(i, j));
@@ -172,8 +164,8 @@ public class King extends AbstractPiece
             {
                   for (int compteurDirection = 1; compteurDirection < 8; compteurDirection++)
                   {
-                        i = positionDepart.obtenirNumeroDeLigne() + direction3[0] * compteurDirection;
-                        j = positionDepart.obtenirNumeroDeColonne() + direction3[1] * compteurDirection;
+                        i = position.obtenirNumeroDeLigne() + direction3[0] * compteurDirection;
+                        j = position.obtenirNumeroDeColonne() + direction3[1] * compteurDirection;
                         if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               squareTest = Echiquier.square.get(new Position(i, j));
@@ -199,8 +191,8 @@ public class King extends AbstractPiece
             /* boucle-test des cavaliers */
             for (int[] direction4 : this.listPositionCavalier)
             {
-                  i = positionDepart.obtenirNumeroDeLigne() + direction4[0];
-                  j = positionDepart.obtenirNumeroDeColonne() + direction4[1];
+                  i = position.obtenirNumeroDeLigne() + direction4[0];
+                  j = position.obtenirNumeroDeColonne() + direction4[1];
                   if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                   {
                         squareTest = Echiquier.square.get(new Position(i, j));
@@ -242,8 +234,8 @@ public class King extends AbstractPiece
                   j = positionDepart.obtenirNumeroDeColonne() + direction[1];
                   if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                   {
-                        positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                         newPosition = new Position(i, j);
+                        positionDeFin = Echiquier.square.get(newPosition);
                         if (!isCheck(newPosition))
                         {
                               if (positionDeFin.getPiece() != null)
@@ -271,30 +263,40 @@ public class King extends AbstractPiece
                   i = positionDepart.obtenirNumeroDeLigne() + listPositionRoqueDroite[0][0];
                   j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueDroite[0][1];
                   newPosition = new Position(i, j);
-                  tour = Echiquier.square.get(new Position(i, j + 1)).getPiece();
-                  if (tour.getPieceType() == PieceType.ROOK && !tour.hasAlreadyMove)
+                  if (Echiquier.square.get(new Position(i, j + 1)).getPiece() != null)
                   {
-                        if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j - 1)))
+                        tour = Echiquier.square.get(new Position(i, j + 1)).getPiece();
+                        if (tour.getPieceType() == PieceType.ROOK && !tour.hasAlreadyMove)
                         {
-                              possibleMovement.add(newPosition);
+                              if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j - 1)))
+                              {
+                                    possibleMovement.add(newPosition);
+                              }
                         }
                   }
-
                   // roque de gauche
                   i = positionDepart.obtenirNumeroDeLigne() + listPositionRoqueGauche[0][0];
                   j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueGauche[0][1];
                   newPosition = new Position(i, j);
-                  tour = Echiquier.square.get(new Position(i, j - 2)).getPiece();
-                  if (tour.getPieceType() == PieceType.ROOK && !tour.hasAlreadyMove)
+                  if (Echiquier.square.get(new Position(i, j + 1)).getPiece() != null)
                   {
-                        if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j + 1)))
+                        tour = Echiquier.square.get(new Position(i, j - 2)).getPiece();
+                        if (tour.getPieceType() == PieceType.ROOK && !tour.hasAlreadyMove)
                         {
-                              possibleMovement.add(newPosition);
+                              if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j + 1)))
+                              {
+                                    possibleMovement.add(newPosition);
+                              }
                         }
                   }
             }
 
             return possibleMovement;
+      }
+
+      public void setKingPosition(Position position)
+      {
+            this.kingPosition = position;
       }
 
       /**

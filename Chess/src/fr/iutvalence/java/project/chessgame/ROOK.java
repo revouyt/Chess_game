@@ -11,14 +11,9 @@ import java.util.List;
 public class ROOK extends AbstractPiece
 {
       /**
-       * Valeur de la coordonnée de la pièce
-       */
-      private int position = 1;
-
-      /**
        * La liste des différentes positions possible terme de coordonnées
        */
-      private final int[][] listPosition = { { position, 0 }, { 0, -position }, { -position, 0 }, { 0, position } };
+      private final int[][] listPosition = { { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 } };
 
       /**
        * Créer une tour de couleur donnée

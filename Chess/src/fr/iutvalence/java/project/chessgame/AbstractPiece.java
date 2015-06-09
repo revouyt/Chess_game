@@ -27,7 +27,7 @@ public abstract class AbstractPiece
       /**
        * Default : 0 when it hasn't moved yet, 1 when it already moved
        */
-      public boolean hasAlreadyMove;
+      protected boolean hasAlreadyMove;
 
       /**
        * Créer une pièce de couleur donnée

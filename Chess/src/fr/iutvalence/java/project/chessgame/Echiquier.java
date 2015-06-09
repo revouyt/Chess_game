@@ -24,13 +24,27 @@ public class Echiquier
        */
       public static HashMap<Position, Square> square = new HashMap<Position, Square>();
 
+      private final King blackKing;
+
+      private final King whiteKing;
+
       /**
        * Créer un nouvel échiquier et placer les pièces à leurs places initiales
        */
       public Echiquier()
       {
+            this.blackKing = new King(ColorEnum.BLACK);
+            this.whiteKing = new King(ColorEnum.WHITE);
             this.creerEchiquier();
             this.poserPieces();
+      }
+
+      public Echiquier(String string)
+      {
+
+            this.blackKing = new King(ColorEnum.BLACK);
+            this.whiteKing = new King(ColorEnum.WHITE);
+            this.creerEchiquier();
       }
 
       /**
@@ -72,6 +86,22 @@ public class Echiquier
       }
 
       /**
+       * @return the blackKing
+       */
+      public King getBlackKing()
+      {
+            return blackKing;
+      }
+
+      /**
+       * @return the whiteKing
+       */
+      public King getWhiteKing()
+      {
+            return whiteKing;
+      }
+
+      /**
        * Obtenir une case à une position donnée
        *
        * @param position la position de la case
@@ -100,7 +130,7 @@ public class Echiquier
        * @param position La position d'arrivée
        * @param piece La pièce à poser
        */
-      private void poserPiece(Position position, AbstractPiece piece)
+      public void poserPiece(Position position, AbstractPiece piece)
       {
             this.obtenirCase(position).setPiece(piece);
       }
@@ -114,7 +144,8 @@ public class Echiquier
             this.poserPiece(new Position(0, 1), new Knight(ColorEnum.BLACK));
             this.poserPiece(new Position(0, 2), new Bishop(ColorEnum.BLACK));
             this.poserPiece(new Position(0, 3), new Queen(ColorEnum.BLACK));
-            this.poserPiece(new Position(0, 4), new King(ColorEnum.BLACK));
+            this.poserPiece(new Position(0, 4), this.blackKing);
+            this.blackKing.setKingPosition(new Position(0, 4));
             this.poserPiece(new Position(0, 5), new Bishop(ColorEnum.BLACK));
             this.poserPiece(new Position(0, 6), new Knight(ColorEnum.BLACK));
             this.poserPiece(new Position(0, 7), new ROOK(ColorEnum.BLACK));
@@ -129,7 +160,8 @@ public class Echiquier
             this.poserPiece(new Position(7, 1), new Knight(ColorEnum.WHITE));
             this.poserPiece(new Position(7, 2), new Bishop(ColorEnum.WHITE));
             this.poserPiece(new Position(7, 3), new Queen(ColorEnum.WHITE));
-            this.poserPiece(new Position(7, 4), new King(ColorEnum.WHITE));
+            this.poserPiece(new Position(7, 4), this.whiteKing);
+            this.whiteKing.setKingPosition(new Position(0, 4));
             this.poserPiece(new Position(7, 5), new Bishop(ColorEnum.WHITE));
             this.poserPiece(new Position(7, 6), new Knight(ColorEnum.WHITE));
             this.poserPiece(new Position(7, 7), new ROOK(ColorEnum.WHITE));

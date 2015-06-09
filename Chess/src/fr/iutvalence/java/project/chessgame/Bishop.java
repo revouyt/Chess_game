@@ -11,15 +11,9 @@ import java.util.List;
 public class Bishop extends AbstractPiece
 {
       /**
-       * Valeur de la coordonnée de la pièce
-       */
-      private int position = 1;
-
-      /**
        * La liste des différentes positions possible terme de coordonnées
        */
-      private final int[][] listPosition = { { position, position }, { position, -position }, { -position, -position },
-                  { -position, position } };
+      private final int[][] listPosition = { { 1, 1 }, { 1, -1 }, { -1, -1 }, { -1, 1 } };
 
       /**
        * Créer un fou de couleur donnée
