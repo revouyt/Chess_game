@@ -13,7 +13,7 @@ public class ROOK extends AbstractPiece
       /**
        * Valeur de la coordonnée de la pièce
        */
-      private int position;
+      private int position = 1;
 
       /**
        * La liste des différentes positions possible terme de coordonnées
@@ -56,11 +56,11 @@ public class ROOK extends AbstractPiece
             int i, j;
             for (int[] direction : listPosition)
             {
-                  for (position = 1; position < 8; position++)
+                  for (int compteurDirection = 1; compteurDirection < 8; compteurDirection++)
                   {
-                        i = positionDepart.obtenirNumeroDeLigne() + direction[0];
-                        j = positionDepart.obtenirNumeroDeColonne() + direction[1];
-                        if (i >= 0 || i < Echiquier.NOMBRE_DE_LIGNES || j < Echiquier.NOMBRE_DE_COLONNES || j >= 0)
+                        i = positionDepart.obtenirNumeroDeLigne() + direction[0] * compteurDirection;
+                        j = positionDepart.obtenirNumeroDeColonne() + direction[1] * compteurDirection;
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                               if (positionDeFin.getPiece() != null)

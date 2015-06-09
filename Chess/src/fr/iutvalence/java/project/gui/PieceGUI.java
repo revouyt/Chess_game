@@ -15,7 +15,7 @@ public class PieceGUI
       {
             for (ListPieces pieceName : ListPieces.values())
             {
-                  this.piecesImage.put(pieceName, new ImageIcon(getClass().getResource("/img/" + pieceName + ".png")).getImage());
+                  PieceGUI.piecesImage.put(pieceName, new ImageIcon(getClass().getResource("/img/" + pieceName + ".png")).getImage());
             }
 
       }

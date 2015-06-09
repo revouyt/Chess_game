@@ -63,10 +63,9 @@ public class Knight extends AbstractPiece
                         {
                               if (positionDeFin.getPiece().obtenirCouleur() == this.couleur)
                               {
-                                    break;
+                                    continue;
                               }
                               possibleMovement.add(newPosition);
-                              break;
                         }
                         else
                         {

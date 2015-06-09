@@ -113,7 +113,7 @@ public class Pawn extends AbstractPiece
                         positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                         if (positionDeFin.getPiece() == null)
                         {
-                              break;
+                              continue;
                         }
                         else
                         {

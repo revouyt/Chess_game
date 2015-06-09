@@ -61,6 +61,14 @@ public abstract class AbstractPiece
       }
 
       /**
+       * This piece has moved
+       */
+      public void itMoved()
+      {
+            this.hasAlreadyMove = true;
+      }
+
+      /**
        * Obtenir la couleur de la piece
        *
        * @return la couleur de la piece
