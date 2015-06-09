@@ -14,8 +14,8 @@ public class GameLauncher
 {
       public static void main(String[] args)
       {
-            new Echiquier();
-            new GameGUI().setVisible(true);
+            Echiquier theBoard = new Echiquier();
+            new GameGUI(theBoard).setVisible(true);
       }
 
       /**

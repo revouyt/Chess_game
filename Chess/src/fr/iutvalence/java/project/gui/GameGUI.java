@@ -20,9 +20,11 @@ public class GameGUI extends JFrame
 
       private JMenuBar menu;
 
-      private BoardGUI board;
+      private BoardGUI boardGui;
 
-      public GameGUI()
+      private Echiquier board;
+
+      public GameGUI(Echiquier board)
       {
             // Affichage de la fenêtre
             this.setTitle("jeu d'échecs");
@@ -30,13 +32,13 @@ public class GameGUI extends JFrame
             this.setResizable(true);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setAlwaysOnTop(true);
-            // this.setUndecorated(true);
             this.getContentPane().setLayout(new BorderLayout());
+            this.board = board;
 
             // Affichage de l'echiquier
-            this.board = new BoardGUI();
-            this.board.setLayout(new GridLayout(Echiquier.NOMBRE_DE_LIGNES, Echiquier.NOMBRE_DE_COLONNES));
-            this.add(board);
+            this.boardGui = new BoardGUI(this.board);
+            this.boardGui.setLayout(new GridLayout(Echiquier.NOMBRE_DE_LIGNES, Echiquier.NOMBRE_DE_COLONNES));
+            this.add(boardGui);
 
             // Affichage de l'annexe
             this.annexe = new JPanel();

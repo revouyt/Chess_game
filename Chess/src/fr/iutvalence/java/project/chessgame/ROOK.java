@@ -29,6 +29,14 @@ public class ROOK extends AbstractPiece
       {
             super(couleur);
             this.Piecetype = PieceType.ROOK;
+            if (couleur == ColorEnum.BLACK)
+            {
+                  this.PieceName = ListPieces.BLACK_ROOK;
+            }
+            else
+            {
+                  this.PieceName = ListPieces.WHITE_ROOK;
+            }
       }
 
       /**

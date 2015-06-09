@@ -30,6 +30,14 @@ public class Bishop extends AbstractPiece
       {
             super(couleur);
             this.Piecetype = PieceType.BISHOP;
+            if (couleur == ColorEnum.BLACK)
+            {
+                  this.PieceName = ListPieces.BLACK_BISHOP;
+            }
+            else
+            {
+                  this.PieceName = ListPieces.WHITE_BISHOP;
+            }
       }
 
       /**

@@ -24,6 +24,14 @@ public class Knight extends AbstractPiece
       {
             super(couleur);
             this.Piecetype = PieceType.KNIGHT;
+            if (couleur == ColorEnum.BLACK)
+            {
+                  this.PieceName = ListPieces.BLACK_KNIGHT;
+            }
+            else
+            {
+                  this.PieceName = ListPieces.WHITE_KNIGHT;
+            }
       }
 
       /**

@@ -50,6 +50,14 @@ public class King extends AbstractPiece
             super(couleur);
             this.hasAlreadyMove = false;
             this.Piecetype = PieceType.KING;
+            if (couleur == ColorEnum.BLACK)
+            {
+                  this.PieceName = ListPieces.BLACK_KING;
+            }
+            else
+            {
+                  this.PieceName = ListPieces.WHITE_KING;
+            }
       }
 
       /**
@@ -73,9 +81,12 @@ public class King extends AbstractPiece
                         if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               squareTest = Echiquier.square.get(new Position(i, j));
-                              if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_PAWN)
+                              if (squareTest.getPiece() != null)
                               {
-                                    return true;
+                                    if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_PAWN)
+                                    {
+                                          return true;
+                                    }
                               }
                         }
                   }
@@ -83,17 +94,28 @@ public class King extends AbstractPiece
                   /* boucle-test des diagonales Fou */
                   for (int[] direction2 : this.listPositionDiagonale)
                   {
-                        i = positionDepart.obtenirNumeroDeLigne() + direction2[0];
-                        j = positionDepart.obtenirNumeroDeColonne() + direction2[1];
-                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
+                        for (this.position = 1; this.position < 8; this.position++)
                         {
-                              squareTest = Echiquier.square.get(new Position(i, j));
-                              for (this.position = 1; this.position < 8; this.position++)
+                              i = positionDepart.obtenirNumeroDeLigne() + direction2[0];
+                              j = positionDepart.obtenirNumeroDeColonne() + direction2[1];
+                              if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                               {
-                                    if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_BISHOP
-                                                || squareTest.getPiece().getPieceName() == ListPieces.WHITE_QUEEN)
+                                    squareTest = Echiquier.square.get(new Position(i, j));
+                                    if (squareTest.getPiece() != null)
                                     {
-                                          return true;
+                                          if (squareTest.getPiece().obtenirCouleur() == this.couleur)
+                                          {
+                                                break;
+                                          }
+                                          else
+                                          {
+
+                                                if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_BISHOP
+                                                            || squareTest.getPiece().getPieceName() == ListPieces.WHITE_QUEEN)
+                                                {
+                                                      return true;
+                                                }
+                                          }
                                     }
                               }
                         }
@@ -102,17 +124,28 @@ public class King extends AbstractPiece
                   /* boucle-test des lignes Tour */
                   for (int[] direction3 : this.listPositionLigne)
                   {
-                        i = positionDepart.obtenirNumeroDeLigne() + direction3[0];
-                        j = positionDepart.obtenirNumeroDeColonne() + direction3[1];
-                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
+                        for (this.position = 1; this.position < 8; this.position++)
                         {
-                              squareTest = Echiquier.square.get(new Position(i, j));
-                              for (this.position = 1; this.position < 8; this.position++)
+                              i = positionDepart.obtenirNumeroDeLigne() + direction3[0];
+                              j = positionDepart.obtenirNumeroDeColonne() + direction3[1];
+                              if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                               {
-                                    if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_ROOK
-                                                || squareTest.getPiece().getPieceName() == ListPieces.WHITE_QUEEN)
+                                    squareTest = Echiquier.square.get(new Position(i, j));
+                                    if (squareTest.getPiece() != null)
                                     {
-                                          return true;
+                                          if (squareTest.getPiece().obtenirCouleur() == this.couleur)
+                                          {
+                                                break;
+                                          }
+                                          else
+                                          {
+
+                                                if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_ROOK
+                                                            || squareTest.getPiece().getPieceName() == ListPieces.WHITE_QUEEN)
+                                                {
+                                                      return true;
+                                                }
+                                          }
                                     }
                               }
                         }
@@ -126,9 +159,12 @@ public class King extends AbstractPiece
                         if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               squareTest = Echiquier.square.get(new Position(i, j));
-                              if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_KNIGHT)
+                              if (squareTest.getPiece() != null)
                               {
-                                    return true;
+                                    if (squareTest.getPiece().getPieceName() == ListPieces.WHITE_KNIGHT)
+                                    {
+                                          return true;
+                                    }
                               }
                         }
                   }
@@ -145,9 +181,12 @@ public class King extends AbstractPiece
                         if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               squareTest = Echiquier.square.get(new Position(i, j));
-                              if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_PAWN)
+                              if (squareTest.getPiece() != null)
                               {
-                                    return true;
+                                    if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_PAWN)
+                                    {
+                                          return true;
+                                    }
                               }
                         }
                   }
@@ -161,10 +200,13 @@ public class King extends AbstractPiece
                               squareTest = Echiquier.square.get(new Position(i, j));
                               for (this.position = 1; this.position < 8; this.position++)
                               {
-                                    if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_BISHOP
-                                                || squareTest.getPiece().getPieceName() == ListPieces.BLACK_QUEEN)
+                                    if (squareTest.getPiece() != null)
                                     {
-                                          return true;
+                                          if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_BISHOP
+                                                      || squareTest.getPiece().getPieceName() == ListPieces.BLACK_QUEEN)
+                                          {
+                                                return true;
+                                          }
                                     }
                               }
                         }
@@ -180,10 +222,13 @@ public class King extends AbstractPiece
                               squareTest = Echiquier.square.get(new Position(i, j));
                               for (this.position = 1; this.position < 8; this.position++)
                               {
-                                    if (squareTest.getPiece().getPieceType() == PieceType.ROOK
-                                                || squareTest.getPiece().getPieceName() == ListPieces.BLACK_QUEEN)
+                                    if (squareTest.getPiece() != null)
                                     {
-                                          return true;
+                                          if (squareTest.getPiece().getPieceType() == PieceType.ROOK
+                                                      || squareTest.getPiece().getPieceName() == ListPieces.BLACK_QUEEN)
+                                          {
+                                                return true;
+                                          }
                                     }
                               }
                         }
@@ -197,9 +242,12 @@ public class King extends AbstractPiece
                         if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
                         {
                               squareTest = Echiquier.square.get(new Position(i, j));
-                              if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_KNIGHT)
+                              if (squareTest.getPiece() != null)
                               {
-                                    return true;
+                                    if (squareTest.getPiece().getPieceName() == ListPieces.BLACK_KNIGHT)
+                                    {
+                                          return true;
+                                    }
                               }
                         }
                   }
@@ -274,7 +322,7 @@ public class King extends AbstractPiece
                         j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueDroite[0][1];
                         newPosition = new Position(i, j);
                         tour = Echiquier.square.get(new Position(i, j + 1)).getPiece();
-                        if (tour.getPieceName() == ListPieces.WHITE_ROOK && !tour.hasAlreadyMove)
+                        if (tour.getPieceName() == ListPieces.BLACK_ROOK && !tour.hasAlreadyMove)
                         {
                               if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j - 1)))
                               {
@@ -287,7 +335,7 @@ public class King extends AbstractPiece
                         j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueGauche[0][1];
                         newPosition = new Position(i, j);
                         tour = Echiquier.square.get(new Position(i, j - 2)).getPiece();
-                        if (tour.getPieceName() == ListPieces.WHITE_ROOK && !tour.hasAlreadyMove)
+                        if (tour.getPieceName() == ListPieces.BLACK_ROOK && !tour.hasAlreadyMove)
                         {
                               if (!isCheck(newPosition) && possibleMovement.contains(new Position(i, j + 1)))
                               {

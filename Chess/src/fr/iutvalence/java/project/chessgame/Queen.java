@@ -30,6 +30,14 @@ public class Queen extends AbstractPiece
       {
             super(couleur);
             this.Piecetype = PieceType.QUEEN;
+            if (couleur == ColorEnum.BLACK)
+            {
+                  this.PieceName = ListPieces.BLACK_QUEEN;
+            }
+            else
+            {
+                  this.PieceName = ListPieces.WHITE_QUEEN;
+            }
       }
 
       /**

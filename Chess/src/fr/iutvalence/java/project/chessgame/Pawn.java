@@ -31,6 +31,14 @@ public class Pawn extends AbstractPiece
       {
             super(couleur);
             this.Piecetype = PieceType.PAWN;
+            if (couleur == ColorEnum.BLACK)
+            {
+                  this.PieceName = ListPieces.BLACK_PAWN;
+            }
+            else
+            {
+                  this.PieceName = ListPieces.WHITE_PAWN;
+            }
       }
 
       /**
@@ -109,7 +117,10 @@ public class Pawn extends AbstractPiece
                         }
                         else
                         {
-                              possibleMovement.add(newPosition);
+                              if (positionDeFin.getPiece().obtenirCouleur() != this.couleur)
+                              {
+                                    possibleMovement.add(newPosition);
+                              }
                         }
                   }
             }
