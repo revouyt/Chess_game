@@ -2,6 +2,7 @@ package fr.iutvalence.java.project.chessgame;
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -23,6 +24,17 @@ public class Echiquier
        * Les cases de l'échiquier
        */
       public static HashMap<Position, Square> square = new HashMap<Position, Square>();
+
+      /**
+       * Pose une pièce à une position donnée
+       *
+       * @param position La position d'arrivée
+       * @param piece La pièce à poser
+       */
+      public static void poserPiece(Echiquier board, Position position, AbstractPiece piece)
+      {
+            board.obtenirCase(position).setPiece(piece);
+      }
 
       private final King blackKing;
 
@@ -81,8 +93,24 @@ public class Echiquier
             {
                   return;
             }
-            this.poserPiece(positionArrivee, pieceADeplacer);
+            Echiquier.poserPiece(this, positionArrivee, pieceADeplacer);
             this.obtenirCase(positionDepart).removePiece();
+      }
+
+      public HashMap<Position, AbstractPiece> getAllPieces(ColorEnum Color)
+      {
+            HashMap<Position, AbstractPiece> pieces = new HashMap<Position, AbstractPiece>();
+            for (Map.Entry<Position, Square> entry : Echiquier.square.entrySet())
+            {
+                  if (entry.getValue().getPiece() != null)
+                  {
+                        if (entry.getValue().getPiece().obtenirCouleur() == Color)
+                        {
+                              pieces.put(entry.getKey(), entry.getValue().getPiece());
+                        }
+                  }
+            }
+            return pieces;
       }
 
       /**
@@ -125,46 +153,35 @@ public class Echiquier
       }
 
       /**
-       * Pose une pièce à une position donnée
-       *
-       * @param position La position d'arrivée
-       * @param piece La pièce à poser
-       */
-      public void poserPiece(Position position, AbstractPiece piece)
-      {
-            this.obtenirCase(position).setPiece(piece);
-      }
-
-      /**
        * Posage de toutes les pièces à leurs positions d'origine
        */
       private void poserPieces()
       {
-            this.poserPiece(new Position(0, 0), new ROOK(ColorEnum.BLACK));
-            this.poserPiece(new Position(0, 1), new Knight(ColorEnum.BLACK));
-            this.poserPiece(new Position(0, 2), new Bishop(ColorEnum.BLACK));
-            this.poserPiece(new Position(0, 3), new Queen(ColorEnum.BLACK));
-            this.poserPiece(new Position(0, 4), this.blackKing);
+            Echiquier.poserPiece(this, new Position(0, 0), new ROOK(ColorEnum.BLACK));
+            Echiquier.poserPiece(this, new Position(0, 1), new Knight(ColorEnum.BLACK));
+            Echiquier.poserPiece(this, new Position(0, 2), new Bishop(ColorEnum.BLACK));
+            Echiquier.poserPiece(this, new Position(0, 3), new Queen(ColorEnum.BLACK));
+            Echiquier.poserPiece(this, new Position(0, 4), this.blackKing);
             this.blackKing.setKingPosition(new Position(0, 4));
-            this.poserPiece(new Position(0, 5), new Bishop(ColorEnum.BLACK));
-            this.poserPiece(new Position(0, 6), new Knight(ColorEnum.BLACK));
-            this.poserPiece(new Position(0, 7), new ROOK(ColorEnum.BLACK));
+            Echiquier.poserPiece(this, new Position(0, 5), new Bishop(ColorEnum.BLACK));
+            Echiquier.poserPiece(this, new Position(0, 6), new Knight(ColorEnum.BLACK));
+            Echiquier.poserPiece(this, new Position(0, 7), new ROOK(ColorEnum.BLACK));
 
             for (int numeroDeColonne = 0; numeroDeColonne < NOMBRE_DE_COLONNES; numeroDeColonne++)
             {
-                  this.poserPiece(new Position(1, numeroDeColonne), new Pawn(ColorEnum.BLACK));
-                  this.poserPiece(new Position(6, numeroDeColonne), new Pawn(ColorEnum.WHITE));
+                  Echiquier.poserPiece(this, new Position(1, numeroDeColonne), new Pawn(ColorEnum.BLACK));
+                  Echiquier.poserPiece(this, new Position(6, numeroDeColonne), new Pawn(ColorEnum.WHITE));
             }
 
-            this.poserPiece(new Position(7, 0), new ROOK(ColorEnum.WHITE));
-            this.poserPiece(new Position(7, 1), new Knight(ColorEnum.WHITE));
-            this.poserPiece(new Position(7, 2), new Bishop(ColorEnum.WHITE));
-            this.poserPiece(new Position(7, 3), new Queen(ColorEnum.WHITE));
-            this.poserPiece(new Position(7, 4), this.whiteKing);
+            Echiquier.poserPiece(this, new Position(7, 0), new ROOK(ColorEnum.WHITE));
+            Echiquier.poserPiece(this, new Position(7, 1), new Knight(ColorEnum.WHITE));
+            Echiquier.poserPiece(this, new Position(7, 2), new Bishop(ColorEnum.WHITE));
+            Echiquier.poserPiece(this, new Position(7, 3), new Queen(ColorEnum.WHITE));
+            Echiquier.poserPiece(this, new Position(7, 4), this.whiteKing);
             this.whiteKing.setKingPosition(new Position(0, 4));
-            this.poserPiece(new Position(7, 5), new Bishop(ColorEnum.WHITE));
-            this.poserPiece(new Position(7, 6), new Knight(ColorEnum.WHITE));
-            this.poserPiece(new Position(7, 7), new ROOK(ColorEnum.WHITE));
+            Echiquier.poserPiece(this, new Position(7, 5), new Bishop(ColorEnum.WHITE));
+            Echiquier.poserPiece(this, new Position(7, 6), new Knight(ColorEnum.WHITE));
+            Echiquier.poserPiece(this, new Position(7, 7), new ROOK(ColorEnum.WHITE));
       }
 
 }

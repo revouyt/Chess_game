@@ -2,6 +2,7 @@ package fr.iutvalence.java.project.chessgame;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -69,6 +70,12 @@ public class King extends AbstractPiece
             {
                   this.PieceName = ListPieces.WHITE_KING;
             }
+      }
+
+      public boolean canBeSaved(HashMap<Position, AbstractPiece> listPiecesMonoColor)
+      {
+
+            return true;
       }
 
       public Position getKingPosition()

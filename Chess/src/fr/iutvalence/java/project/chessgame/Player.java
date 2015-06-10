@@ -4,11 +4,13 @@ package fr.iutvalence.java.project.chessgame;
 public class Player
 {
 
-      private boolean isEnable;
+      private boolean hasPlayed;
 
       private String name;
 
       private final ColorEnum color;
+
+      private boolean isEnable;
 
       public Player(ColorEnum color)
       {
@@ -18,19 +20,32 @@ public class Player
       }
 
       /**
-       * @return the isEnable
+       * @return the color
        */
+      public ColorEnum getColor()
+      {
+            return color;
+      }
+
       public boolean isEnable()
       {
-            return isEnable;
+            return this.isEnable;
       }
 
       /**
        * @param isEnable the isEnable to set
        */
-      public void setEnable(boolean isEnable)
+      public void setEnableFalse()
       {
-            this.isEnable = isEnable;
+            this.isEnable = false;
+      }
+
+      /**
+       * @param isEnable the isEnable to set
+       */
+      public void setEnableTrue()
+      {
+            this.isEnable = true;
       }
 
 }

@@ -28,32 +28,39 @@ public class GameGUI extends JFrame
 
       private JButton quitB = new JButton("Quitter");
 
+      public JButton undoB = new JButton("Undo");
+
       private JButton loadB = new JButton("Charger une partie");
+
+      private JButton saveB = new JButton("Sauvgarder une partie");
 
       private BoardGUI boardGui;
 
-      private Echiquier board;
+      private final Echiquier board;
 
-      private Game theGame;
+      private final Game theGame;
 
       public GameGUI(Game game)
       {
             // Affichage de la fenêtre
-            this.setTitle("jeu d'échecs");
+            this.setTitle("Blitzkrieg");
             this.setSize(1200, 800);
             this.setResizable(false);
             this.setLocationRelativeTo(null);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setAlwaysOnTop(false);
 
+            JPanel quitLoad = new JPanel();
             JPanel coor1 = new JPanel();
             JPanel coor2 = new JPanel();
             JPanel divers = new JPanel();
             JPanel joueur = new JPanel();
             JPanel temps = new JPanel();
 
-            quitB.setBackground(Color.WHITE);
-            loadB.setBackground(Color.WHITE);
+            this.quitB.setBackground(Color.WHITE);
+            this.loadB.setBackground(Color.WHITE);
+            this.saveB.setBackground(Color.WHITE);
+            this.undoB.setBackground(Color.WHITE);
 
             coor2.setLayout(new GridLayout(0, 8));
             for (int iNbCoor2 = 1; iNbCoor2 < 9; iNbCoor2++)
@@ -79,26 +86,21 @@ public class GameGUI extends JFrame
             temps.setLayout(new GridLayout(1, 1));
             temps.add(new JLabel(new ImageIcon(getClass().getResource("/img/bois.png"))));
 
-            /*
-             * JLabel labelCoor2 = new JLabel(new
-             * ImageIcon(getClass().getResource( "/img/Coor2.png")));
-             * coor2.add(labelCoor2); this.getContentPane().setLayout(new
-             * BorderLayout());
-             */
-
             this.board = game.getBoard();
             this.theGame = game;
 
             // Affichage de l'echiquier
-            this.boardGui = new BoardGUI(this.theGame);
+            this.boardGui = new BoardGUI(this);
             this.boardGui.setLayout(new GridLayout(Echiquier.NOMBRE_DE_LIGNES, Echiquier.NOMBRE_DE_COLONNES));
             this.add(boardGui);
 
-            splitQuitLoad = new JSplitPane(JSplitPane.VERTICAL_SPLIT, quitB, loadB);
-            splitQuitLoad.setDividerSize(0);
-            splitQuitLoad.setDividerLocation(75);
+            quitLoad.setLayout(new GridLayout(4, 0));
+            quitLoad.add(this.undoB);
+            quitLoad.add(this.loadB);
+            quitLoad.add(this.saveB);
+            quitLoad.add(this.quitB);
 
-            splitTemps = new JSplitPane(JSplitPane.VERTICAL_SPLIT, temps, splitQuitLoad);
+            splitTemps = new JSplitPane(JSplitPane.VERTICAL_SPLIT, temps, quitLoad);
             splitTemps.setDividerSize(0);
             splitTemps.setDividerLocation(400);
 
@@ -123,12 +125,30 @@ public class GameGUI extends JFrame
             splitGame.setDividerLocation(800);
 
             this.getContentPane().add(splitGame);
+            this.setVisible(true);
+      }
 
-            /*
-             * Affichage de l'annexe this.annexe = new JPanel();
-             * this.annexe.add(new JTextField(
-             * "yololollololoollollllolloollolloollolloollolloollolloollolloollolo"
-             * )); this.add(annexe, BorderLayout.EAST);
-             */
+      /**
+       * @return the board
+       */
+      public Echiquier getBoard()
+      {
+            return board;
+      }
+
+      /**
+       * @return the boardGui
+       */
+      public BoardGUI getBoardGui()
+      {
+            return boardGui;
+      }
+
+      /**
+       * @return the theGame
+       */
+      public Game getTheGame()
+      {
+            return theGame;
       }
 }

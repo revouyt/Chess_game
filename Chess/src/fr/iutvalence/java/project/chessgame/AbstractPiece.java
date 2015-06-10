@@ -60,6 +60,11 @@ public abstract class AbstractPiece
             return this.Piecetype;
       }
 
+      public void itDidntMoved()
+      {
+            this.hasAlreadyMove = false;
+      }
+
       /**
        * This piece has moved
        */
