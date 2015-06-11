@@ -3,10 +3,8 @@ package fr.iutvalence.java.project.chessgame;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
 import java.util.Timer;
-import fr.iutvalence.java.project.gui.BoardGUI;
+import java.util.TimerTask;
 import fr.iutvalence.java.project.gui.GameGUI;
 
 
@@ -46,6 +44,125 @@ public class Game
       /** Liste des mouvements éxécutés. */
       public static List<Movement> _moves = new ArrayList<Movement>();
 
+      /** Description du plateau. */
+      public static Echiquier board;
+
+      public static GameGUI userInterface;
+
+      // public static List<Position> canSomeOneHelp(ColorEnum color, Echiquier
+      // board, Game game)
+      // {
+      // List<Position> allPossibleMoves = new ArrayList<Position>();
+      // List<Position> possibleMove;
+      // ListIterator<Position> li;
+      // Position posCourante;
+      //
+      // for (Map.Entry<Position, AbstractPiece> entry :
+      // board.getAllPieces(color).entrySet())
+      // {
+      // possibleMove = entry.getValue().possibleMovements(entry.getKey());
+      // li = possibleMove.listIterator();
+      // while (li.hasNext())
+      // {
+      // posCourante = li.next();
+      // game.getUserInterface().getBoardGui();
+      // BoardGUI.setLastPiece(entry.getValue());
+      // BoardGUI.setLastPosition(posCourante);
+      // BoardGUI.setLastImage(BoardGUI.buttonsPosition.get(entry.getKey()).getPiece());
+      // if (Echiquier.square.get(posCourante).getPiece() != null)
+      // {
+      // Game._moves.add(new Movement(BoardGUI.getLastPosition(), posCourante,
+      // BoardGUI.getLastPiece(),
+      // Echiquier.square.get(posCourante).getPiece(), BoardGUI.getLastImage(),
+      // BoardGUI.buttonsPosition
+      // .get(posCourante).getPiece(), board));
+      // BoardGUI.buttonsPosition.get(BoardGUI.getLastPosition()).setPiece(null);
+      // BoardGUI.buttonsPosition.get(BoardGUI.getLastPosition()).repaint();
+      // BoardGUI.buttonsPosition.get(posCourante).setPiece(BoardGUI.getLastImage());
+      // BoardGUI.buttonsPosition.get(posCourante).repaint();
+      // board.deplacerPiece(entry.getKey(), posCourante);
+      // Game.currentMove++;
+      // Game.userInterface.getBoardGui().cleanSelectedButton(BoardGUI.PossiblePosition);
+      // if (color == ColorEnum.WHITE)
+      // {
+      // King whiteKing = board.getWhiteKing();
+      // if (whiteKing.isCheck(whiteKing.getKingPosition()))
+      // {
+      // BoardGUI.undo();
+      // continue;
+      // }
+      // else
+      // {
+      // BoardGUI.undo();
+      // allPossibleMoves.add(posCourante);
+      // }
+      // }
+      // else
+      // {
+      // King blackKing = Game.board.getBlackKing();
+      // if (blackKing.isCheck(blackKing.getKingPosition()))
+      // {
+      // BoardGUI.undo();
+      // continue;
+      // }
+      // else
+      // {
+      // BoardGUI.undo();
+      // allPossibleMoves.add(posCourante);
+      // }
+      // }
+      // }
+      // // move case vide
+      // else
+      // {
+      // Game._moves.add(new Movement(BoardGUI.getLastPosition(), posCourante,
+      // BoardGUI.getLastPiece(), null, BoardGUI
+      // .getLastImage(), null, board));
+      // BoardGUI.buttonsPosition.get(BoardGUI.getLastPosition()).setPiece(null);
+      // BoardGUI.buttonsPosition.get(BoardGUI.getLastPosition()).repaint();
+      // BoardGUI.buttonsPosition.get(posCourante).setPiece(BoardGUI.getLastImage());
+      // BoardGUI.buttonsPosition.get(posCourante).repaint();
+      // board.deplacerPiece(entry.getKey(), posCourante);
+      // Game.currentMove++;
+      // Game.userInterface.getBoardGui().cleanSelectedButton(BoardGUI.PossiblePosition);
+      // if (color == ColorEnum.WHITE)
+      // {
+      // King whiteKing = board.getWhiteKing();
+      // if (whiteKing.isCheck(whiteKing.getKingPosition()))
+      // {
+      // BoardGUI.undo();
+      // continue;
+      // }
+      // else
+      // {
+      // BoardGUI.undo();
+      // allPossibleMoves.add(posCourante);
+      // }
+      // }
+      // else
+      // {
+      // King blackKing = Game.board.getBlackKing();
+      // if (blackKing.isCheck(blackKing.getKingPosition()))
+      // {
+      // BoardGUI.undo();
+      // continue;
+      // }
+      // else
+      // {
+      // BoardGUI.undo();
+      // allPossibleMoves.add(posCourante);
+      // }
+      // }
+      // }
+      // }
+      // }
+      // return allPossibleMoves;
+      // }
+
+      public static ColorEnum curPlayer;
+
+      public static ColorEnum lastPlayer;
+
       /** Description du joueur noir. */
       private final Player blackPlayer;
 
@@ -54,23 +171,16 @@ public class Game
       /** Description du joueur blanc. */
       private final Player whitePlayer;
 
-      /** Description du plateau. */
-      private Echiquier board;
-
-      private ColorEnum curPlayer;
-
       /** Valeur courante du compteur de temps des noirs. */
       long blackTimer;
 
       /** Timer de l'horloge. */
       private Timer timer;
 
+      // private BoardGUI graphicInterface;
+
       /** Dernier temps de jeu */
       private long lastTimerTick;
-
-      private final GameGUI userInterface;
-
-      // private BoardGUI graphicInterface;
 
       /** Valeur courante du compteur de temps des blancs. */
       long whiteTimer;
@@ -83,205 +193,182 @@ public class Game
             this.blackPlayer = new Player(ColorEnum.BLACK);
             this.whitePlayer = new Player(ColorEnum.WHITE);
             this.itIsWhiteTurn();
-            this.curPlayer = ColorEnum.WHITE;
-            Game.currentMove = 0;
-            this.board = new Echiquier();
-            this.userInterface = new GameGUI(this);
-      }
-
-      private List<Position> canSomeOneHelp(ColorEnum color)
-      {
-            List<Position> allPossibleMoves = new ArrayList<Position>();
-            List<Position> possibleMove;
-            ListIterator<Position> li;
-            for (Map.Entry<Position, AbstractPiece> entry : this.board.getAllPieces(color).entrySet())
-            {
-                  possibleMove = entry.getValue().possibleMovements(entry.getKey());
-                  li = possibleMove.listIterator();
-                  while (li.hasNext())
-                  {
-                        Echiquier.square.get(BoardGUI.getLastPosition()).getPiece().itMoved();
-                        this.userInterface
-                        .getTheGame()
-                        .get_moves()
-                        .add(new Movement(BoardGUI.getLastPosition(), li.next(), BoardGUI.getLastPiece(), Echiquier.square.get(
-                                    li.next()).getPiece(), BoardGUI.getLastImage(), BoardGUI.buttonsPosition.get(li.next())
-                                    .getPiece(), this.userInterface.getBoard()));
-                        BoardGUI.buttonsPosition.get(BoardGUI.getLastPosition()).setPiece(null);
-                        BoardGUI.buttonsPosition.get(BoardGUI.getLastPosition()).repaint();
-                        BoardGUI.buttonsPosition.get(li.next()).setPiece(BoardGUI.getLastImage());
-                        BoardGUI.buttonsPosition.get(li.next()).repaint();
-                        this.userInterface.getTheGame().getBoard().deplacerPiece(entry.getKey(), li.next());
-                        Game.currentMove++;
-                        this.userInterface.getBoardGui().cleanSelectedButton(BoardGUI.PossiblePosition);
-                        if (color == ColorEnum.WHITE)
-                        {
-                              King whiteKing = this.board.getWhiteKing();
-                              if (whiteKing.isCheck(whiteKing.getKingPosition()))
-                              {
-                                    BoardGUI.undo();
-                                    continue;
-                              }
-                              else
-                              {
-                                    BoardGUI.undo();
-                                    allPossibleMoves.add(li.next());
-                              }
-                        }
-                        else
-                        {
-                              King blackKing = this.board.getBlackKing();
-                              if (blackKing.isCheck(blackKing.getKingPosition()))
-                              {
-                                    BoardGUI.undo();
-                                    continue;
-                              }
-                              else
-                              {
-                                    BoardGUI.undo();
-                                    allPossibleMoves.add(li.next());
-                              }
-                        }
-                  }
-            }
-            return allPossibleMoves;
+            Game.curPlayer = ColorEnum.WHITE;
+            Game.lastPlayer = null;
+            Game.currentMove = -1;
+            Game.board = new Echiquier();
+            Game.userInterface = new GameGUI(this);
       }
 
       /**
        * @return the _moves
        */
-       public List<Movement> get_moves()
-       {
-             return Game._moves;
-       }
+      public List<Movement> get_moves()
+      {
+            return Game._moves;
+      }
 
-       /**
-        * @return the board
-        */
-       public Echiquier getBoard()
-       {
-             return board;
-       }
+      /**
+       * @return the board
+       */
+      public Echiquier getBoard()
+      {
+            return board;
+      }
 
-       /**
-        * @return the curPlayer
-        */
-       public ColorEnum getCurPlayer()
-       {
-             return this.curPlayer;
-       }
+      /**
+       * @return the curPlayer
+       */
+      public ColorEnum getCurPlayer()
+      {
+            return Game.curPlayer;
+      }
 
-       /**
-        * @return the currentMove
-        */
-       public int getCurrentMove()
-       {
-             return Game.currentMove;
-       }
+      /**
+       * @return the currentMove
+       */
+      public int getCurrentMove()
+      {
+            return Game.currentMove;
+      }
 
-       /**
-        * @return the userInterface
-        */
-       public GameGUI getUserInterface()
-       {
-             return userInterface;
-       }
+      /**
+       * @return the userInterface
+       */
+      public GameGUI getUserInterface()
+      {
+            return userInterface;
+      }
 
-       /**
-        * Determine if it is the end of the game
-        *
-        * @return false if the game isn't over
-        */
-       private boolean isEndOfGame(ColorEnum color)
-       {
-             if (color == ColorEnum.WHITE)
-             {
-                   King whiteKing = this.board.getWhiteKing();
-                   if (whiteKing.isCheck(whiteKing.getKingPosition()) && whiteKing.possibleMovements(whiteKing.getKingPosition()).isEmpty()
-                               && canSomeOneHelp(ColorEnum.WHITE).isEmpty())
-                   {
-                         return true;
-                   }
-             }
-             else
-             {
-                   King blackKing = this.board.getBlackKing();
-                   if (blackKing.isCheck(blackKing.getKingPosition()) && blackKing.possibleMovements(blackKing.getKingPosition()).isEmpty()
-                               && canSomeOneHelp(ColorEnum.BLACK).isEmpty())
-                   {
-                         return true;
-                   }
-             }
-             return false;
-       }
+      /**
+       * Determine if it is the end of the game
+       *
+       * @return false if the game isn't over
+       */
+      private boolean isEndOfGame(ColorEnum color)
+      {
+            if (color == ColorEnum.WHITE)
+            {
+                  King whiteKing = Game.board.getWhiteKing();
+                  if (whiteKing.isCheck(whiteKing.getKingPosition()) && whiteKing.possibleMovements(whiteKing.getKingPosition()).isEmpty())
+                  // && canSomeOneHelp(ColorEnum.WHITE, this.board,
+                  // this).isEmpty())
+                  {
+                        return true;
+                  }
+            }
+            else
+            {
+                  King blackKing = Game.board.getBlackKing();
+                  if (blackKing.isCheck(blackKing.getKingPosition()) && blackKing.possibleMovements(blackKing.getKingPosition()).isEmpty())
+                  // && canSomeOneHelp(ColorEnum.BLACK, this.board,
+                  // this).isEmpty())
+                  {
+                        return true;
+                  }
+            }
+            return false;
+      }
 
-       /**
-        * @return the isWhiteTurn
-        */
-       public boolean isWhiteTurn()
-       {
-             return isWhiteTurn;
-       }
+      /**
+       * @return the isWhiteTurn
+       */
+      public boolean isWhiteTurn()
+      {
+            return isWhiteTurn;
+      }
 
-       public void itIsBlackTurn()
-       {
-             this.isWhiteTurn = false;
+      public void itIsBlackTurn()
+      {
+            this.isWhiteTurn = false;
 
-       }
+      }
 
-       public void itIsWhiteTurn()
-       {
-             this.isWhiteTurn = true;
-       }
+      public void itIsWhiteTurn()
+      {
+            this.isWhiteTurn = true;
+      }
 
-       /**
-        * Progress of the game
-        */
-       public void play()
-       {
-             while (!isEndOfGame(ColorEnum.BLACK) || !isEndOfGame(ColorEnum.WHITE))
-             {
-                   ColorEnum playerCourant = this.getCurPlayer();
-                   if (isWhiteTurn())
-                   {
-                         while (true)
-                         {
-                               if (this.curPlayer != playerCourant)
-                               {
-                                     break;
-                               }
-                         }
+      /**
+       * Progress of the game
+       */
+      public void play()
+      {
+            this.blackTimer = GAME_DURATION;
+            this.whiteTimer = GAME_DURATION;
+            System.out.println("temps des blackos : " + this.blackTimer);
+            System.out.println("temps des ptits blancs : " + this.whiteTimer);
+            this.lastTimerTick = System.currentTimeMillis();
+            if (this.timer != null)
+            {
+                  this.timer.cancel();
+            }
+            this.timer = new Timer();
+            this.timer.scheduleAtFixedRate(new TimerTask()
+            {
 
-                   }
-                   else
-                   {
-                         while (true)
-                         {
-                               if (this.curPlayer != playerCourant)
-                               {
-                                     break;
-                               }
-                         }
-                         this.itIsWhiteTurn();
-                   }
+                  /**
+                   * Action déclenchée périodiquement par le timer gérant
+                   * l'horloge.
+                   */
+                  @Override
+                  public void run()
+                  {
+                        if (!isEndOfGame(ColorEnum.BLACK) || !isEndOfGame(ColorEnum.WHITE))
+                        {
+                              final long time = System.currentTimeMillis();
+                              if (isWhiteTurn())
+                              {
+                                    System.out.println("temps des ptits blancs : ");
+                                    whiteTimer -= time - lastTimerTick;
+                                    while (true)
+                                    {
+                                          if (Game.curPlayer != ColorEnum.WHITE)
+                                          {
+                                                break;
+                                          }
+                                    }
+                                    itIsBlackTurn();
+                              }
+                              else
+                              {
+                                    System.out.println("temps des blackos : " + blackTimer);
+                                    blackTimer -= time - lastTimerTick;
+                                    while (true)
+                                    {
+                                          if (Game.curPlayer != ColorEnum.BLACK)
+                                          {
+                                                break;
+                                          }
+                                    }
+                                    itIsWhiteTurn();
+                              }
+                              lastTimerTick = time;
+                        }
+                  }
+            }, 250, 1000);
 
-             }
+      }
 
-       }
+      /**
+       * @param curPlayer the curPlayer to set
+       */
+      public void setCurPlayer(ColorEnum curPlayer)
+      {
+            Game.curPlayer = curPlayer;
+      }
 
-       /**
-        * @param curPlayer the curPlayer to set
-        */
-       public void setCurPlayer(ColorEnum curPlayer)
-       {
-             this.curPlayer = curPlayer;
-       }
+      public void setLastPlayer(ColorEnum color)
+      {
+            Game.lastPlayer = color;
 
-       /**
-        * @param isWhiteTurn the isWhiteTurn to set
-        */
-       public void setWhiteTurn(boolean isWhiteTurn)
-       {
-             this.isWhiteTurn = isWhiteTurn;
-       }
+      }
+
+      /**
+       * @param isWhiteTurn the isWhiteTurn to set
+       */
+      public void setWhiteTurn(boolean isWhiteTurn)
+      {
+            this.isWhiteTurn = isWhiteTurn;
+      }
 }

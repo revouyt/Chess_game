@@ -285,7 +285,7 @@ public class King extends AbstractPiece
                   i = positionDepart.obtenirNumeroDeLigne() + listPositionRoqueGauche[0][0];
                   j = positionDepart.obtenirNumeroDeColonne() + listPositionRoqueGauche[0][1];
                   newPosition = new Position(i, j);
-                  if (Echiquier.square.get(new Position(i, j + 1)).getPiece() != null)
+                  if (Echiquier.square.get(new Position(i, j - 2)).getPiece() != null)
                   {
                         tour = Echiquier.square.get(new Position(i, j - 2)).getPiece();
                         if (tour.getPieceType() == PieceType.ROOK && !tour.hasAlreadyMove)

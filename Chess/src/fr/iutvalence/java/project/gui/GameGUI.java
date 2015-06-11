@@ -4,6 +4,8 @@ package fr.iutvalence.java.project.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,12 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.JTextField;
 import fr.iutvalence.java.project.chessgame.Echiquier;
 import fr.iutvalence.java.project.chessgame.Game;
 
 
-public class GameGUI extends JFrame
+public class GameGUI extends JFrame implements ActionListener
 {
       // attributs
 
@@ -26,7 +27,7 @@ public class GameGUI extends JFrame
 
       private JMenuBar menu;
 
-      private JButton quitB = new JButton("Quitter");
+      private JButton menuB = new JButton("Menu");
 
       public JButton undoB = new JButton("Undo");
 
@@ -49,15 +50,17 @@ public class GameGUI extends JFrame
             this.setLocationRelativeTo(null);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setAlwaysOnTop(false);
+            this.setUndecorated(true);
 
             JPanel quitLoad = new JPanel();
             JPanel coor1 = new JPanel();
             JPanel coor2 = new JPanel();
             JPanel divers = new JPanel();
-            JPanel joueur = new JPanel();
+            JPanel joueur1 = new JPanel();
+            JPanel joueur2 = new JPanel();
             JPanel temps = new JPanel();
 
-            this.quitB.setBackground(Color.WHITE);
+            this.menuB.setBackground(Color.WHITE);
             this.loadB.setBackground(Color.WHITE);
             this.saveB.setBackground(Color.WHITE);
             this.undoB.setBackground(Color.WHITE);
@@ -77,11 +80,9 @@ public class GameGUI extends JFrame
             divers.setLayout(new GridLayout(1, 1));
             divers.add(new JLabel(new ImageIcon(getClass().getResource("/img/Divers.png"))));
 
-            joueur.setLayout(new GridLayout(1, 1));
-            joueur.setBackground(Color.WHITE);
             Font police = new Font("Arial", Font.BOLD, 50);
-            joueur.add(new JTextField("Joueur")).setFont(police);
-            joueur.add(new JTextField("Joueur")).setFont(police);
+            joueur1.add(new JLabel(FieldPlayerGUI.player1Name)).setFont(police);
+            joueur2.add(new JLabel(FieldPlayerGUI.player2Name)).setFont(police);
 
             temps.setLayout(new GridLayout(1, 1));
             temps.add(new JLabel(new ImageIcon(getClass().getResource("/img/bois.png"))));
@@ -98,13 +99,20 @@ public class GameGUI extends JFrame
             quitLoad.add(this.undoB);
             quitLoad.add(this.loadB);
             quitLoad.add(this.saveB);
-            quitLoad.add(this.quitB);
+            quitLoad.add(this.menuB);
+
+            joueur1.setBackground(Color.WHITE);
+            joueur2.setBackground(Color.WHITE);
+
+            JSplitPane splitPlayerDisplay = new JSplitPane(JSplitPane.VERTICAL_SPLIT, joueur1, joueur2);
+            splitPlayerDisplay.setDividerSize(0);
+            splitPlayerDisplay.setDividerLocation(100);
 
             splitTemps = new JSplitPane(JSplitPane.VERTICAL_SPLIT, temps, quitLoad);
             splitTemps.setDividerSize(0);
             splitTemps.setDividerLocation(400);
 
-            splitJoueur = new JSplitPane(JSplitPane.VERTICAL_SPLIT, joueur, splitTemps);
+            splitJoueur = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitPlayerDisplay, splitTemps);
             splitJoueur.setDividerSize(0);
             splitJoueur.setDividerLocation(200);
 
@@ -126,6 +134,37 @@ public class GameGUI extends JFrame
 
             this.getContentPane().add(splitGame);
             this.setVisible(true);
+
+            this.undoB.addActionListener(new ActionListener()
+            {
+
+                  @Override
+                  public void actionPerformed(ActionEvent e)
+                  {
+                        BoardGUI.undo();
+                  }
+            });
+            this.menuB.addActionListener(new ActionListener()
+            {
+
+                  @Override
+                  public void actionPerformed(ActionEvent e)
+                  {
+                        FieldPlayerGUI.player1Name = "";
+                        FieldPlayerGUI.player2Name = "";
+                        dispose();
+                        MenuGUI menu = new MenuGUI();
+                        menu.setVisible(true);
+                        MenuGUI.menuGUI = menu;
+                  }
+            });
+      }
+
+      @Override
+      public void actionPerformed(ActionEvent e)
+      {
+            // NOTHING TODO
+
       }
 
       /**

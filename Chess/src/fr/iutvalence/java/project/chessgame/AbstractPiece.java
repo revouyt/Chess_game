@@ -27,7 +27,7 @@ public abstract class AbstractPiece
       /**
        * Default : 0 when it hasn't moved yet, 1 when it already moved
        */
-      protected boolean hasAlreadyMove;
+      public boolean hasAlreadyMove;
 
       /**
        * Créer une pièce de couleur donnée
@@ -58,6 +58,14 @@ public abstract class AbstractPiece
       public PieceType getPieceType()
       {
             return this.Piecetype;
+      }
+
+      /**
+       * @return the hasAlreadyMove
+       */
+      public boolean isHasAlreadyMove()
+      {
+            return hasAlreadyMove;
       }
 
       public void itDidntMoved()

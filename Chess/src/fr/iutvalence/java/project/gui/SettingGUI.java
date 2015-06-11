@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,7 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JSplitPane;
 
 
-public class SettingGUI extends JFrame
+public class SettingGUI extends JFrame implements ActionListener
 {
 
       private JRadioButton music2 = new JRadioButton("ON");
@@ -32,7 +34,7 @@ public class SettingGUI extends JFrame
             this.setSize(350, 250);
             this.setResizable(false);
             this.setLocationRelativeTo(null);
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             this.setAlwaysOnTop(false);
 
             JPanel title = new JPanel();
@@ -93,6 +95,22 @@ public class SettingGUI extends JFrame
             splitSetting.setDividerLocation(75);
 
             this.getContentPane().add(splitSetting);
+
+            this.menu.addActionListener(new ActionListener()
+            {
+
+                  @Override
+                  public void actionPerformed(ActionEvent e)
+                  {
+                        dispose();
+                  }
+            });
+      }
+
+      @Override
+      public void actionPerformed(ActionEvent arg0)
+      {
+            // NOTHING TODO
 
       }
 }
