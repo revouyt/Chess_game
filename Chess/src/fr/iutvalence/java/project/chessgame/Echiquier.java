@@ -178,7 +178,7 @@ public class Echiquier
             Echiquier.poserPiece(this, new Position(7, 2), new Bishop(ColorEnum.WHITE));
             Echiquier.poserPiece(this, new Position(7, 3), new Queen(ColorEnum.WHITE));
             Echiquier.poserPiece(this, new Position(7, 4), this.whiteKing);
-            this.whiteKing.setKingPosition(new Position(0, 4));
+            this.whiteKing.setKingPosition(new Position(7, 4));
             Echiquier.poserPiece(this, new Position(7, 5), new Bishop(ColorEnum.WHITE));
             Echiquier.poserPiece(this, new Position(7, 6), new Knight(ColorEnum.WHITE));
             Echiquier.poserPiece(this, new Position(7, 7), new ROOK(ColorEnum.WHITE));

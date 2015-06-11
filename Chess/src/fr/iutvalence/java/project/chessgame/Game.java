@@ -1,10 +1,10 @@
 package fr.iutvalence.java.project.chessgame;
 
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 import fr.iutvalence.java.project.gui.GameGUI;
 
 
@@ -245,7 +245,7 @@ public class Game
        *
        * @return false if the game isn't over
        */
-      private boolean isEndOfGame(ColorEnum color)
+      public boolean isEndOfGame(ColorEnum color)
       {
             if (color == ColorEnum.WHITE)
             {
@@ -280,75 +280,98 @@ public class Game
 
       public void itIsBlackTurn()
       {
+
+            this.getUserInterface();
+            GameGUI.joueur1.setBackground(Color.LIGHT_GRAY);
+            this.getUserInterface();
+            GameGUI.joueur2.setBackground(Color.WHITE);
             this.isWhiteTurn = false;
 
       }
 
       public void itIsWhiteTurn()
       {
+
+            this.getUserInterface();
+            GameGUI.joueur1.setBackground(Color.WHITE);
+            this.getUserInterface();
+            GameGUI.joueur2.setBackground(Color.LIGHT_GRAY);
             this.isWhiteTurn = true;
       }
 
       /**
        * Progress of the game
        */
-      public void play()
-      {
-            this.blackTimer = GAME_DURATION;
-            this.whiteTimer = GAME_DURATION;
-            System.out.println("temps des blackos : " + this.blackTimer);
-            System.out.println("temps des ptits blancs : " + this.whiteTimer);
-            this.lastTimerTick = System.currentTimeMillis();
-            if (this.timer != null)
-            {
-                  this.timer.cancel();
-            }
-            this.timer = new Timer();
-            this.timer.scheduleAtFixedRate(new TimerTask()
-            {
-
-                  /**
-                   * Action déclenchée périodiquement par le timer gérant
-                   * l'horloge.
-                   */
-                  @Override
-                  public void run()
-                  {
-                        if (!isEndOfGame(ColorEnum.BLACK) || !isEndOfGame(ColorEnum.WHITE))
-                        {
-                              final long time = System.currentTimeMillis();
-                              if (isWhiteTurn())
-                              {
-                                    System.out.println("temps des ptits blancs : ");
-                                    whiteTimer -= time - lastTimerTick;
-                                    while (true)
-                                    {
-                                          if (Game.curPlayer != ColorEnum.WHITE)
-                                          {
-                                                break;
-                                          }
-                                    }
-                                    itIsBlackTurn();
-                              }
-                              else
-                              {
-                                    System.out.println("temps des blackos : " + blackTimer);
-                                    blackTimer -= time - lastTimerTick;
-                                    while (true)
-                                    {
-                                          if (Game.curPlayer != ColorEnum.BLACK)
-                                          {
-                                                break;
-                                          }
-                                    }
-                                    itIsWhiteTurn();
-                              }
-                              lastTimerTick = time;
-                        }
-                  }
-            }, 250, 1000);
-
-      }
+      // public void play()
+      // {
+      // this.blackTimer = GAME_DURATION;
+      // this.whiteTimer = GAME_DURATION;
+      // System.out.println("temps des blackos : " + this.blackTimer);
+      // System.out.println("temps des ptits blancs : " + this.whiteTimer);
+      // if (this.timer != null)
+      // {
+      // this.timer.cancel();
+      // }
+      // this.timer = new Timer();
+      // this.lastTimerTick = System.currentTimeMillis();
+      // this.timer.scheduleAtFixedRate(new TimerTask()
+      // {
+      //
+      // /**
+      // * Action déclenchée périodiquement par le timer gérant
+      // * l'horloge.
+      // */
+      // @Override
+      // public void run()
+      // {
+      // if (!isEndOfGame(ColorEnum.BLACK) && !isEndOfGame(ColorEnum.WHITE))
+      // {
+      // final long time = System.currentTimeMillis();
+      // if (isWhiteTurn())
+      // {
+      // System.out.println("temps des ptits  : " + whiteTimer);
+      // // whiteTimer -= time - lastTimerTick;
+      // while (true)
+      // {
+      // if (Game.curPlayer != ColorEnum.WHITE)
+      // {
+      // break;
+      // }
+      // }
+      // itIsBlackTurn();
+      // }
+      // else
+      // {
+      // System.out.println("temps des blackos : " + blackTimer);
+      // // blackTimer -= time - lastTimerTick;
+      // while (true)
+      // {
+      // if (Game.curPlayer != ColorEnum.BLACK)
+      // {
+      // break;
+      // }
+      // }
+      // itIsWhiteTurn();
+      // }
+      // // lastTimerTick = time;
+      // if (Game.lastPlayer == ColorEnum.WHITE)
+      // {
+      // System.out.println("Bravo! " + GameGUI.joueur1 + "vous avez gagnez!");
+      // }
+      // else
+      // {
+      // System.out.println("Bravo! " + GameGUI.joueur2 + "vous avez gagnez!");
+      // }
+      // }
+      //
+      // else
+      // {
+      // return;
+      // }
+      // }
+      // }, 250, 1000);
+      //
+      // }
 
       /**
        * @param curPlayer the curPlayer to set

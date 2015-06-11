@@ -23,6 +23,10 @@ public class GameGUI extends JFrame implements ActionListener
 
       static final int WIDTH = 350, HEIGHT = 350;
 
+      public static JPanel joueur1 = new JPanel();
+
+      public static JPanel joueur2 = new JPanel();
+
       private JSplitPane splitGame, splitEchiquier, splitGame1, splitGame2, splitTemps, splitQuitLoad, splitJoueur;
 
       private JMenuBar menu;
@@ -56,8 +60,6 @@ public class GameGUI extends JFrame implements ActionListener
             JPanel coor1 = new JPanel();
             JPanel coor2 = new JPanel();
             JPanel divers = new JPanel();
-            JPanel joueur1 = new JPanel();
-            JPanel joueur2 = new JPanel();
             JPanel temps = new JPanel();
 
             this.menuB.setBackground(Color.WHITE);
@@ -102,7 +104,7 @@ public class GameGUI extends JFrame implements ActionListener
             quitLoad.add(this.menuB);
 
             joueur1.setBackground(Color.WHITE);
-            joueur2.setBackground(Color.WHITE);
+            joueur2.setBackground(Color.LIGHT_GRAY);
 
             JSplitPane splitPlayerDisplay = new JSplitPane(JSplitPane.VERTICAL_SPLIT, joueur1, joueur2);
             splitPlayerDisplay.setDividerSize(0);
