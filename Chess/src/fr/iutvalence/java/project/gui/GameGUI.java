@@ -20,6 +20,7 @@ import fr.iutvalence.java.project.chessgame.Game;
 public class GameGUI extends JFrame implements ActionListener
 {
       // attributs
+      public static GameGUI gameGUI;
 
       static final int WIDTH = 350, HEIGHT = 350;
 

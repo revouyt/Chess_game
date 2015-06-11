@@ -20,6 +20,8 @@ public class FieldPlayerGUI extends JFrame implements ActionListener
 
       private static JTextField player1 = new JTextField();
 
+      public static Game game;
+
       private static JTextField player2 = new JTextField();
 
       public static String player1Name = "";
@@ -79,7 +81,7 @@ public class FieldPlayerGUI extends JFrame implements ActionListener
                         player2Name = player2.getText();
                         player1Name = player1.getText();
                         MenuGUI.menuGUI.dispose();
-                        Game game = new Game();
+                        FieldPlayerGUI.game = new Game();
 
                   }
             });

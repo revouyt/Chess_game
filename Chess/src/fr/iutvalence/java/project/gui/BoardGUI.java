@@ -221,6 +221,7 @@ public class BoardGUI extends JPanel implements ActionListener
                   {
                         if (currentImage != null)
                         {
+                              this.cleanSelectedButton(BoardGUI.PossiblePosition);
                               this.showOwnMove(e);
                         }
                         // clic case vide
@@ -247,13 +248,13 @@ public class BoardGUI extends JPanel implements ActionListener
                                           // on bouge le roi
                                           Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
                                           this.theUserInterface.getTheGame().get_moves()
-                                                      .add(new Movement("ROQUE1", this.theUserInterface.getBoard()));
+                                          .add(new Movement("ROQUE1", this.theUserInterface.getBoard()));
                                           BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
                                           repaint();
                                           BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
                                           repaint();
                                           this.theUserInterface.getTheGame().getBoard()
-                                                      .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                          .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
                                           // on bouge la tour
                                           BoardGUI.buttonsPosition.get(new Position(0, 3)).setPiece(
                                                       BoardGUI.buttonsPosition.get(new Position(0, 0)).getPiece());
@@ -261,7 +262,7 @@ public class BoardGUI extends JPanel implements ActionListener
                                           BoardGUI.buttonsPosition.get(new Position(0, 0)).setPiece(null);
                                           repaint();
                                           this.theUserInterface.getTheGame().getBoard()
-                                                      .deplacerPiece(new Position(0, 0), new Position(0, 3));
+                                          .deplacerPiece(new Position(0, 0), new Position(0, 3));
 
                                           Game.currentMove++;
                                           this.theUserInterface.getBoard().getBlackKing().setKingPosition(King.ROQUE1);
@@ -285,7 +286,7 @@ public class BoardGUI extends JPanel implements ActionListener
                                           // on bouge le roi
                                           Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
                                           this.theUserInterface.getTheGame().get_moves()
-                                                      .add(new Movement("ROQUE2", this.theUserInterface.getBoard()));
+                                          .add(new Movement("ROQUE2", this.theUserInterface.getBoard()));
                                           BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
                                           repaint();
                                           BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
@@ -298,7 +299,7 @@ public class BoardGUI extends JPanel implements ActionListener
                                           BoardGUI.buttonsPosition.get(new Position(0, 7)).setPiece(null);
                                           repaint();
                                           this.theUserInterface.getTheGame().getBoard()
-                                                      .deplacerPiece(new Position(0, 7), new Position(0, 5));
+                                          .deplacerPiece(new Position(0, 7), new Position(0, 5));
 
                                           Game.currentMove++;
                                           this.theUserInterface.getBoard().getBlackKing().setKingPosition(King.ROQUE2);
@@ -321,7 +322,7 @@ public class BoardGUI extends JPanel implements ActionListener
                                           // on bouge le roi
                                           Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
                                           this.theUserInterface.getTheGame().get_moves()
-                                                      .add(new Movement("ROQUE3", this.theUserInterface.getBoard()));
+                                          .add(new Movement("ROQUE3", this.theUserInterface.getBoard()));
                                           BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
                                           repaint();
                                           BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
@@ -334,7 +335,7 @@ public class BoardGUI extends JPanel implements ActionListener
                                           BoardGUI.buttonsPosition.get(new Position(7, 0)).setPiece(null);
                                           repaint();
                                           this.theUserInterface.getTheGame().getBoard()
-                                                      .deplacerPiece(new Position(7, 0), new Position(7, 3));
+                                          .deplacerPiece(new Position(7, 0), new Position(7, 3));
 
                                           Game.currentMove++;
                                           this.theUserInterface.getBoard().getWhiteKing().setKingPosition(King.ROQUE3);
@@ -357,7 +358,7 @@ public class BoardGUI extends JPanel implements ActionListener
                                           // on bouge le roi
                                           Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
                                           this.theUserInterface.getTheGame().get_moves()
-                                                      .add(new Movement("ROQUE4", this.theUserInterface.getBoard()));
+                                          .add(new Movement("ROQUE4", this.theUserInterface.getBoard()));
                                           BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
                                           repaint();
                                           BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
@@ -370,7 +371,7 @@ public class BoardGUI extends JPanel implements ActionListener
                                           BoardGUI.buttonsPosition.get(new Position(7, 7)).setPiece(null);
                                           repaint();
                                           this.theUserInterface.getTheGame().getBoard()
-                                                      .deplacerPiece(new Position(7, 7), new Position(7, 5));
+                                          .deplacerPiece(new Position(7, 7), new Position(7, 5));
 
                                           Game.currentMove++;
                                           this.theUserInterface.getBoard().getWhiteKing().setKingPosition(King.ROQUE4);
@@ -393,18 +394,18 @@ public class BoardGUI extends JPanel implements ActionListener
                                     {
                                           Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
                                           this.theUserInterface
-                                                      .getTheGame()
-                                                      .get_moves()
-                                                      .add(new Movement(BoardGUI.lastPosition, currentPiece.getPosition(),
-                                                                  BoardGUI.lastPiece, Echiquier.square.get(currentPiece.getPosition())
-                                                                              .getPiece(), BoardGUI.lastImage, currentPiece.getPiece(),
-                                                                  this.theUserInterface.getBoard()));
+                                          .getTheGame()
+                                          .get_moves()
+                                          .add(new Movement(BoardGUI.lastPosition, currentPiece.getPosition(),
+                                                      BoardGUI.lastPiece, Echiquier.square.get(currentPiece.getPosition())
+                                                      .getPiece(), BoardGUI.lastImage, currentPiece.getPiece(),
+                                                      this.theUserInterface.getBoard()));
                                           BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
                                           repaint();
                                           BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
                                           repaint();
                                           this.theUserInterface.getTheGame().getBoard()
-                                                      .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                          .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
                                           if (BoardGUI.lastPiece.obtenirCouleur() == ColorEnum.WHITE)
                                           {
 
@@ -433,6 +434,7 @@ public class BoardGUI extends JPanel implements ActionListener
                               // clic sur une autre pièce a partir du roi
                               else
                               {
+                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
                                     this.showOwnMove(e);
                               }
                         }
@@ -446,17 +448,17 @@ public class BoardGUI extends JPanel implements ActionListener
                               {
                                     Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
                                     this.theUserInterface
-                                                .getTheGame()
-                                                .get_moves()
-                                                .add(new Movement(BoardGUI.lastPosition, currentPiece.getPosition(), BoardGUI.lastPiece,
-                                                            Echiquier.square.get(currentPiece.getPosition()).getPiece(),
-                                                            BoardGUI.lastImage, currentPiece.getPiece(), this.theUserInterface.getBoard()));
+                                    .getTheGame()
+                                    .get_moves()
+                                    .add(new Movement(BoardGUI.lastPosition, currentPiece.getPosition(), BoardGUI.lastPiece,
+                                                Echiquier.square.get(currentPiece.getPosition()).getPiece(),
+                                                BoardGUI.lastImage, currentPiece.getPiece(), this.theUserInterface.getBoard()));
                                     BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
                                     repaint();
                                     BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
                                     repaint();
                                     this.theUserInterface.getTheGame().getBoard()
-                                                .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                    .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
                                     Game.currentMove++;
                                     this.cleanSelectedButton(BoardGUI.PossiblePosition);
                                     if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
@@ -474,6 +476,7 @@ public class BoardGUI extends JPanel implements ActionListener
                               }
                               else
                               {
+                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
                                     this.showOwnMove(e);
                               }
                         }
@@ -482,7 +485,7 @@ public class BoardGUI extends JPanel implements ActionListener
             }
             else
             {
-                  System.out.println("c'est fini, capri, gringo");
+                  new PopUpWin().setVisible(true);
             }
       }
 
