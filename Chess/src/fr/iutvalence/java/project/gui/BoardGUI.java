@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import fr.iutvalence.java.project.chessgame.AbstractPiece;
@@ -38,6 +39,8 @@ public class BoardGUI extends JPanel implements ActionListener
       private static AbstractPiece lastPiece;
 
       private static Position lastPosition;
+
+      public static JFrame PopUpWin;
 
       /**
        * @return the lastImage
@@ -97,6 +100,10 @@ public class BoardGUI extends JPanel implements ActionListener
                               try
                               {
                                     Movement lastMovement = Game._moves.get(Game.currentMove);
+                                    if (BoardGUI.PopUpWin != null)
+                                    {
+                                          BoardGUI.PopUpWin.setVisible(false);
+                                    }
                                     if (lastMovement.getInitialPositionTour() != null || lastMovement.getFinalPositionTour() != null)
                                     {
 
@@ -207,258 +214,229 @@ public class BoardGUI extends JPanel implements ActionListener
             BoardGUI.lastImage = null;
             BoardGUI.lastPiece = null;
             BoardGUI.lastPosition = null;
+            BoardGUI.PopUpWin = null;
       }
 
       @Override
       public void actionPerformed(ActionEvent e)
       {
-            if (!this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.BLACK)
-                        && !this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.WHITE))
+
+            SquareButton currentPiece = ((SquareButton) e.getSource());
+            Image currentImage = currentPiece.getPiece();
+            if (BoardGUI.lastPiece == null)
             {
-                  SquareButton currentPiece = ((SquareButton) e.getSource());
-                  Image currentImage = currentPiece.getPiece();
-                  if (BoardGUI.lastPiece == null)
+                  // clic case non vide
+                  if (currentImage != null)
                   {
-                        if (currentImage != null)
+                        this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                        this.showOwnMove(e);
+                  }
+            }
+
+            // clic piece, essaie deplacement
+            else
+            {
+                  // clic roi, essaie deplacement
+                  if (BoardGUI.lastPiece.getPieceType() == PieceType.KING)
+                  {
+                        if (BoardGUI.lastPosition == currentPiece.getPosition())
                         {
                               this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                              this.showOwnMove(e);
                         }
-                        // clic case vide
-                        else
+                        // deplacement valide roi
+                        else if (BoardGUI.lastPiece.possibleMovements(BoardGUI.lastPosition).contains(currentPiece.getPosition()))
                         {
-                        }
-                  }
-
-                  // clic piece, essaie deplacement
-                  else
-                  {
-                        // clic roi, essaie deplacement
-                        if (BoardGUI.lastPiece.getPieceType() == PieceType.KING)
-                        {
-                              if (BoardGUI.lastPosition == currentPiece.getPosition())
+                              if (currentPiece.getPosition().equals(King.ROQUE1))
                               {
-                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                              }
-                              // deplacement valide roi
-                              else if (BoardGUI.lastPiece.possibleMovements(BoardGUI.lastPosition).contains(currentPiece.getPosition()))
-                              {
-                                    if (currentPiece.getPosition().equals(King.ROQUE1))
-                                    {
-                                          // on bouge le roi
-                                          Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
-                                          this.theUserInterface.getTheGame().get_moves()
-                                          .add(new Movement("ROQUE1", this.theUserInterface.getBoard()));
-                                          BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
-                                          repaint();
-                                          this.theUserInterface.getTheGame().getBoard()
-                                          .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
-                                          // on bouge la tour
-                                          BoardGUI.buttonsPosition.get(new Position(0, 3)).setPiece(
-                                                      BoardGUI.buttonsPosition.get(new Position(0, 0)).getPiece());
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(new Position(0, 0)).setPiece(null);
-                                          repaint();
-                                          this.theUserInterface.getTheGame().getBoard()
-                                          .deplacerPiece(new Position(0, 0), new Position(0, 3));
-
-                                          Game.currentMove++;
-                                          this.theUserInterface.getBoard().getBlackKing().setKingPosition(King.ROQUE1);
-                                          this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                                          if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().itIsBlackTurn();
-                                          }
-                                          else
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().itIsWhiteTurn();
-                                          }
-
-                                    }
-                                    else if (currentPiece.getPosition().equals(King.ROQUE2))
-                                    {
-                                          // on bouge le roi
-                                          Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
-                                          this.theUserInterface.getTheGame().get_moves()
-                                          .add(new Movement("ROQUE2", this.theUserInterface.getBoard()));
-                                          BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
-                                          repaint();
-                                          this.theUserInterface.getBoard().deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
-                                          // on bouge la tour
-                                          BoardGUI.buttonsPosition.get(new Position(0, 5)).setPiece(
-                                                      BoardGUI.buttonsPosition.get(new Position(0, 7)).getPiece());
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(new Position(0, 7)).setPiece(null);
-                                          repaint();
-                                          this.theUserInterface.getTheGame().getBoard()
-                                          .deplacerPiece(new Position(0, 7), new Position(0, 5));
-
-                                          Game.currentMove++;
-                                          this.theUserInterface.getBoard().getBlackKing().setKingPosition(King.ROQUE2);
-                                          this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                                          if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().itIsBlackTurn();
-                                          }
-                                          else
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().itIsWhiteTurn();
-                                          }
-                                    }
-                                    else if (currentPiece.getPosition().equals(King.ROQUE3))
-                                    {
-                                          // on bouge le roi
-                                          Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
-                                          this.theUserInterface.getTheGame().get_moves()
-                                          .add(new Movement("ROQUE3", this.theUserInterface.getBoard()));
-                                          BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
-                                          repaint();
-                                          this.theUserInterface.getBoard().deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
-                                          // on bouge la tour
-                                          BoardGUI.buttonsPosition.get(new Position(7, 3)).setPiece(
-                                                      BoardGUI.buttonsPosition.get(new Position(7, 0)).getPiece());
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(new Position(7, 0)).setPiece(null);
-                                          repaint();
-                                          this.theUserInterface.getTheGame().getBoard()
-                                          .deplacerPiece(new Position(7, 0), new Position(7, 3));
-
-                                          Game.currentMove++;
-                                          this.theUserInterface.getBoard().getWhiteKing().setKingPosition(King.ROQUE3);
-                                          this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                                          if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().itIsBlackTurn();
-                                          }
-                                          else
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().itIsWhiteTurn();
-                                          }
-                                    }
-                                    else if (currentPiece.getPosition().equals(King.ROQUE4))
-                                    {
-                                          // on bouge le roi
-                                          Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
-                                          this.theUserInterface.getTheGame().get_moves()
-                                          .add(new Movement("ROQUE4", this.theUserInterface.getBoard()));
-                                          BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
-                                          repaint();
-                                          this.theUserInterface.getBoard().deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
-                                          // on bouge la tour
-                                          BoardGUI.buttonsPosition.get(new Position(7, 5)).setPiece(
-                                                      BoardGUI.buttonsPosition.get(new Position(7, 7)).getPiece());
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(new Position(7, 7)).setPiece(null);
-                                          repaint();
-                                          this.theUserInterface.getTheGame().getBoard()
-                                          .deplacerPiece(new Position(7, 7), new Position(7, 5));
-
-                                          Game.currentMove++;
-                                          this.theUserInterface.getBoard().getWhiteKing().setKingPosition(King.ROQUE4);
-                                          this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                                          if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().itIsBlackTurn();
-                                          }
-                                          else
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().itIsWhiteTurn();
-                                          }
-                                    }
-                                    // deplacement roi != roque
-                                    else
-                                    {
-                                          Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
-                                          this.theUserInterface
-                                          .getTheGame()
-                                          .get_moves()
-                                          .add(new Movement(BoardGUI.lastPosition, currentPiece.getPosition(),
-                                                      BoardGUI.lastPiece, Echiquier.square.get(currentPiece.getPosition())
-                                                      .getPiece(), BoardGUI.lastImage, currentPiece.getPiece(),
-                                                      this.theUserInterface.getBoard()));
-                                          BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
-                                          repaint();
-                                          BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
-                                          repaint();
-                                          this.theUserInterface.getTheGame().getBoard()
-                                          .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
-                                          if (BoardGUI.lastPiece.obtenirCouleur() == ColorEnum.WHITE)
-                                          {
-
-                                                this.theUserInterface.getBoard().getWhiteKing().setKingPosition(currentPiece.getPosition());
-                                          }
-                                          else
-                                          {
-                                                this.theUserInterface.getBoard().getBlackKing().setKingPosition(currentPiece.getPosition());
-                                          }
-                                          Game.currentMove++;
-                                          this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                                          if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().itIsBlackTurn();
-                                          }
-                                          else
-                                          {
-                                                this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
-                                                this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
-                                                this.theUserInterface.getTheGame().itIsWhiteTurn();
-                                          }
-                                    }
-                              }
-                              // clic sur une autre pièce a partir du roi
-                              else
-                              {
-                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                                    this.showOwnMove(e);
-                              }
-                        }
-                        else
-                        {
-                              if (BoardGUI.lastPosition == currentPiece.getPosition())
-                              {
-                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                              }
-                              else if (BoardGUI.lastPiece.possibleMovements(BoardGUI.lastPosition).contains(currentPiece.getPosition()))
-                              {
+                                    // on bouge le roi
                                     Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
-                                    this.theUserInterface
-                                    .getTheGame()
-                                    .get_moves()
-                                    .add(new Movement(BoardGUI.lastPosition, currentPiece.getPosition(), BoardGUI.lastPiece,
-                                                Echiquier.square.get(currentPiece.getPosition()).getPiece(),
-                                                BoardGUI.lastImage, currentPiece.getPiece(), this.theUserInterface.getBoard()));
+                                    this.theUserInterface.getTheGame().get_moves()
+                                                .add(new Movement("ROQUE1", this.theUserInterface.getBoard()));
                                     BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
                                     repaint();
                                     BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
                                     repaint();
                                     this.theUserInterface.getTheGame().getBoard()
-                                    .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                                .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                    // on bouge la tour
+                                    BoardGUI.buttonsPosition.get(new Position(0, 3)).setPiece(
+                                                BoardGUI.buttonsPosition.get(new Position(0, 0)).getPiece());
+                                    repaint();
+                                    BoardGUI.buttonsPosition.get(new Position(0, 0)).setPiece(null);
+                                    repaint();
+                                    this.theUserInterface.getTheGame().getBoard().deplacerPiece(new Position(0, 0), new Position(0, 3));
+
+                                    Game.currentMove++;
+                                    this.theUserInterface.getBoard().getBlackKing().setKingPosition(King.ROQUE1);
+                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                                    if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
+                                    {
+                                          this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
+                                          this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
+                                          this.theUserInterface.getTheGame().itIsBlackTurn();
+                                    }
+                                    else
+                                    {
+                                          this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
+                                          this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
+                                          this.theUserInterface.getTheGame().itIsWhiteTurn();
+                                    }
+                                    if (this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.BLACK)
+                                                || this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.WHITE))
+                                    {
+                                          BoardGUI.PopUpWin = new PopUpWin();
+                                          BoardGUI.PopUpWin.setVisible(true);
+                                    }
+
+                              }
+                              else if (currentPiece.getPosition().equals(King.ROQUE2))
+                              {
+                                    // on bouge le roi
+                                    Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
+                                    this.theUserInterface.getTheGame().get_moves()
+                                                .add(new Movement("ROQUE2", this.theUserInterface.getBoard()));
+                                    BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
+                                    repaint();
+                                    BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
+                                    repaint();
+                                    this.theUserInterface.getBoard().deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                    // on bouge la tour
+                                    BoardGUI.buttonsPosition.get(new Position(0, 5)).setPiece(
+                                                BoardGUI.buttonsPosition.get(new Position(0, 7)).getPiece());
+                                    repaint();
+                                    BoardGUI.buttonsPosition.get(new Position(0, 7)).setPiece(null);
+                                    repaint();
+                                    this.theUserInterface.getTheGame().getBoard().deplacerPiece(new Position(0, 7), new Position(0, 5));
+
+                                    Game.currentMove++;
+                                    this.theUserInterface.getBoard().getBlackKing().setKingPosition(King.ROQUE2);
+                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                                    if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
+                                    {
+                                          this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
+                                          this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
+                                          this.theUserInterface.getTheGame().itIsBlackTurn();
+                                    }
+                                    else
+                                    {
+                                          this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
+                                          this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
+                                          this.theUserInterface.getTheGame().itIsWhiteTurn();
+                                    }
+                                    if (this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.BLACK)
+                                                || this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.WHITE))
+                                    {
+                                          BoardGUI.PopUpWin = new PopUpWin();
+                                          BoardGUI.PopUpWin.setVisible(true);
+                                    }
+                              }
+                              else if (currentPiece.getPosition().equals(King.ROQUE3))
+                              {
+                                    // on bouge le roi
+                                    Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
+                                    this.theUserInterface.getTheGame().get_moves()
+                                                .add(new Movement("ROQUE3", this.theUserInterface.getBoard()));
+                                    BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
+                                    repaint();
+                                    BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
+                                    repaint();
+                                    this.theUserInterface.getBoard().deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                    // on bouge la tour
+                                    BoardGUI.buttonsPosition.get(new Position(7, 3)).setPiece(
+                                                BoardGUI.buttonsPosition.get(new Position(7, 0)).getPiece());
+                                    repaint();
+                                    BoardGUI.buttonsPosition.get(new Position(7, 0)).setPiece(null);
+                                    repaint();
+                                    this.theUserInterface.getTheGame().getBoard().deplacerPiece(new Position(7, 0), new Position(7, 3));
+
+                                    Game.currentMove++;
+                                    this.theUserInterface.getBoard().getWhiteKing().setKingPosition(King.ROQUE3);
+                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                                    if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
+                                    {
+                                          this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
+                                          this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
+                                          this.theUserInterface.getTheGame().itIsBlackTurn();
+                                    }
+                                    else
+                                    {
+                                          this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
+                                          this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
+                                          this.theUserInterface.getTheGame().itIsWhiteTurn();
+                                    }
+                                    if (this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.BLACK)
+                                                || this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.WHITE))
+                                    {
+                                          BoardGUI.PopUpWin = new PopUpWin();
+                                          BoardGUI.PopUpWin.setVisible(true);
+                                    }
+                              }
+                              else if (currentPiece.getPosition().equals(King.ROQUE4))
+                              {
+                                    // on bouge le roi
+                                    Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
+                                    this.theUserInterface.getTheGame().get_moves()
+                                                .add(new Movement("ROQUE4", this.theUserInterface.getBoard()));
+                                    BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
+                                    repaint();
+                                    BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
+                                    repaint();
+                                    this.theUserInterface.getBoard().deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                    // on bouge la tour
+                                    BoardGUI.buttonsPosition.get(new Position(7, 5)).setPiece(
+                                                BoardGUI.buttonsPosition.get(new Position(7, 7)).getPiece());
+                                    repaint();
+                                    BoardGUI.buttonsPosition.get(new Position(7, 7)).setPiece(null);
+                                    repaint();
+                                    this.theUserInterface.getTheGame().getBoard().deplacerPiece(new Position(7, 7), new Position(7, 5));
+
+                                    Game.currentMove++;
+                                    this.theUserInterface.getBoard().getWhiteKing().setKingPosition(King.ROQUE4);
+                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                                    if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
+                                    {
+                                          this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
+                                          this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
+                                          this.theUserInterface.getTheGame().itIsBlackTurn();
+                                    }
+                                    else
+                                    {
+                                          this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
+                                          this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
+                                          this.theUserInterface.getTheGame().itIsWhiteTurn();
+                                    }
+                                    if (this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.BLACK)
+                                                || this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.WHITE))
+                                    {
+                                          BoardGUI.PopUpWin = new PopUpWin();
+                                          BoardGUI.PopUpWin.setVisible(true);
+                                    }
+                              }
+                              // deplacement roi != roque
+                              else
+                              {
+                                    Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
+                                    this.theUserInterface
+                                                .getTheGame()
+                                                .get_moves()
+                                                .add(new Movement(BoardGUI.lastPosition, currentPiece.getPosition(), BoardGUI.lastPiece,
+                                                            Echiquier.square.get(currentPiece.getPosition()).getPiece(),
+                                                            BoardGUI.lastImage, currentPiece.getPiece(), this.theUserInterface.getBoard()));
+                                    BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
+                                    repaint();
+                                    BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
+                                    repaint();
+                                    this.theUserInterface.getTheGame().getBoard()
+                                                .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                                    if (BoardGUI.lastPiece.obtenirCouleur() == ColorEnum.WHITE)
+                                    {
+
+                                          this.theUserInterface.getBoard().getWhiteKing().setKingPosition(currentPiece.getPosition());
+                                    }
+                                    else
+                                    {
+                                          this.theUserInterface.getBoard().getBlackKing().setKingPosition(currentPiece.getPosition());
+                                    }
                                     Game.currentMove++;
                                     this.cleanSelectedButton(BoardGUI.PossiblePosition);
                                     if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
@@ -473,20 +451,71 @@ public class BoardGUI extends JPanel implements ActionListener
                                           this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
                                           this.theUserInterface.getTheGame().itIsWhiteTurn();
                                     }
+                                    if (this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.BLACK)
+                                                || this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.WHITE))
+                                    {
+                                          BoardGUI.PopUpWin = new PopUpWin();
+                                          BoardGUI.PopUpWin.setVisible(true);
+                                    }
+                              }
+                        }
+                        // clic sur une autre pièce a partir du roi
+                        else
+                        {
+                              this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                              this.showOwnMove(e);
+                        }
+                  }
+                  else
+                  {
+                        if (BoardGUI.lastPosition == currentPiece.getPosition())
+                        {
+                              this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                        }
+                        else if (BoardGUI.lastPiece.possibleMovements(BoardGUI.lastPosition).contains(currentPiece.getPosition()))
+                        {
+                              Echiquier.square.get(BoardGUI.lastPosition).getPiece().itMoved();
+                              this.theUserInterface
+                                          .getTheGame()
+                                          .get_moves()
+                                          .add(new Movement(BoardGUI.lastPosition, currentPiece.getPosition(), BoardGUI.lastPiece,
+                                                      Echiquier.square.get(currentPiece.getPosition()).getPiece(), BoardGUI.lastImage,
+                                                      currentPiece.getPiece(), this.theUserInterface.getBoard()));
+                              BoardGUI.buttonsPosition.get(BoardGUI.lastPosition).setPiece(null);
+                              repaint();
+                              BoardGUI.buttonsPosition.get(currentPiece.getPosition()).setPiece(BoardGUI.lastImage);
+                              repaint();
+                              this.theUserInterface.getTheGame().getBoard()
+                                          .deplacerPiece(BoardGUI.lastPosition, currentPiece.getPosition());
+                              Game.currentMove++;
+                              this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                              if (this.theUserInterface.getTheGame().getCurPlayer() == ColorEnum.WHITE)
+                              {
+                                    this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.BLACK);
+                                    this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.WHITE);
+                                    this.theUserInterface.getTheGame().itIsBlackTurn();
                               }
                               else
                               {
-                                    this.cleanSelectedButton(BoardGUI.PossiblePosition);
-                                    this.showOwnMove(e);
+                                    this.theUserInterface.getTheGame().setCurPlayer(ColorEnum.WHITE);
+                                    this.theUserInterface.getTheGame().setLastPlayer(ColorEnum.BLACK);
+                                    this.theUserInterface.getTheGame().itIsWhiteTurn();
+                              }
+                              if (this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.BLACK)
+                                          || this.theUserInterface.getTheGame().isEndOfGame(ColorEnum.WHITE))
+                              {
+                                    BoardGUI.PopUpWin = new PopUpWin();
+                                    BoardGUI.PopUpWin.setVisible(true);
                               }
                         }
+                        else
+                        {
+                              this.cleanSelectedButton(BoardGUI.PossiblePosition);
+                              this.showOwnMove(e);
+                        }
                   }
+            }
 
-            }
-            else
-            {
-                  new PopUpWin().setVisible(true);
-            }
       }
 
       public void cleanSelectedButton(List<SquareButton> list)
