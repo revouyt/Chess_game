@@ -190,6 +190,7 @@ public class Game
        */
       public Game()
       {
+            Game.userInterface = new GameGUI(this);
             this.blackPlayer = new Player(ColorEnum.BLACK);
             this.whitePlayer = new Player(ColorEnum.WHITE);
             this.itIsWhiteTurn();
@@ -197,7 +198,6 @@ public class Game
             Game.lastPlayer = null;
             Game.currentMove = -1;
             Game.board = new Echiquier();
-            Game.userInterface = new GameGUI(this);
       }
 
       /**
@@ -251,8 +251,8 @@ public class Game
             {
                   King whiteKing = Game.board.getWhiteKing();
                   if (whiteKing.isCheck(whiteKing.getKingPosition()) && whiteKing.possibleMovements(whiteKing.getKingPosition()).isEmpty())
-                  // && canSomeOneHelp(ColorEnum.WHITE, this.board,
-                  // this).isEmpty())
+                        // && canSomeOneHelp(ColorEnum.WHITE, this.board,
+                        // this).isEmpty())
                   {
                         return true;
                   }
@@ -261,8 +261,8 @@ public class Game
             {
                   King blackKing = Game.board.getBlackKing();
                   if (blackKing.isCheck(blackKing.getKingPosition()) && blackKing.possibleMovements(blackKing.getKingPosition()).isEmpty())
-                  // && canSomeOneHelp(ColorEnum.BLACK, this.board,
-                  // this).isEmpty())
+                        // && canSomeOneHelp(ColorEnum.BLACK, this.board,
+                        // this).isEmpty())
                   {
                         return true;
                   }

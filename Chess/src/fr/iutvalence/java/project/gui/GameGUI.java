@@ -24,9 +24,9 @@ public class GameGUI extends JFrame implements ActionListener
 
       static final int WIDTH = 350, HEIGHT = 350;
 
-      public static JPanel joueur1 = new JPanel();
+      public static JPanel joueur1;
 
-      public static JPanel joueur2 = new JPanel();
+      public static JPanel joueur2;
 
       private JSplitPane splitGame, splitEchiquier, splitGame1, splitGame2, splitTemps, splitQuitLoad, splitJoueur;
 
@@ -62,6 +62,8 @@ public class GameGUI extends JFrame implements ActionListener
             JPanel coor2 = new JPanel();
             JPanel divers = new JPanel();
             JPanel temps = new JPanel();
+            GameGUI.joueur1 = new JPanel();
+            GameGUI.joueur2 = new JPanel();
 
             this.menuB.setBackground(Color.WHITE);
             this.loadB.setBackground(Color.WHITE);
@@ -153,8 +155,6 @@ public class GameGUI extends JFrame implements ActionListener
                   @Override
                   public void actionPerformed(ActionEvent e)
                   {
-                        FieldPlayerGUI.player1Name = "";
-                        FieldPlayerGUI.player2Name = "";
                         dispose();
                         MenuGUI menu = new MenuGUI();
                         menu.setVisible(true);

@@ -18,15 +18,15 @@ import fr.iutvalence.java.project.chessgame.Game;
 public class FieldPlayerGUI extends JFrame implements ActionListener
 {
 
-      private static JTextField player1 = new JTextField();
-
       public static Game game;
-
-      private static JTextField player2 = new JTextField();
 
       public static String player1Name = "";
 
       public static String player2Name = "";
+
+      public static JTextField player1 = new JTextField();
+
+      public static JTextField player2 = new JTextField();
 
       private JButton buttonPlay = new JButton("Jouer");
 
@@ -76,7 +76,6 @@ public class FieldPlayerGUI extends JFrame implements ActionListener
                   @Override
                   public void actionPerformed(ActionEvent e)
                   {
-
                         dispose();
                         player2Name = player2.getText();
                         player1Name = player1.getText();
