@@ -19,7 +19,7 @@ import fr.iutvalence.java.project.chessgame.Game;
 
 public class GameGUI extends JFrame implements ActionListener
 {
-      // attributs
+
       public static GameGUI gameGUI;
 
       static final int WIDTH = 350, HEIGHT = 350;
@@ -48,7 +48,7 @@ public class GameGUI extends JFrame implements ActionListener
 
       public GameGUI(Game game)
       {
-            // Affichage de la fenêtre
+ 
             this.setTitle("Blitzkrieg");
             this.setSize(1200, 800);
             this.setResizable(false);
@@ -95,7 +95,7 @@ public class GameGUI extends JFrame implements ActionListener
             this.board = game.getBoard();
             this.theGame = game;
 
-            // Affichage de l'echiquier
+
             this.boardGui = new BoardGUI(this);
             this.boardGui.setLayout(new GridLayout(Echiquier.NOMBRE_DE_CASES_PAR_LIGNES, Echiquier.NOMBRE_DE_CASES_PAR_COLONNES));
             this.add(boardGui);
@@ -166,29 +166,22 @@ public class GameGUI extends JFrame implements ActionListener
       @Override
       public void actionPerformed(ActionEvent e)
       {
-            // NOTHING TODO
 
       }
 
-      /**
-       * @return the board
-       */
+
       public Echiquier getBoard()
       {
             return board;
       }
 
-      /**
-       * @return the boardGui
-       */
+
       public BoardGUI getBoardGui()
       {
             return boardGui;
       }
 
-      /**
-       * @return the theGame
-       */
+      
       public Game getTheGame()
       {
             return theGame;

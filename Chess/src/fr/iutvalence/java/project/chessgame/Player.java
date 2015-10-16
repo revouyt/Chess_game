@@ -19,9 +19,7 @@ public class Player
             this.name = "";
       }
 
-      /**
-       * @return the color
-       */
+
       public ColorEnum getColor()
       {
             return color;
@@ -32,17 +30,13 @@ public class Player
             return this.isEnable;
       }
 
-      /**
-       * @param isEnable the isEnable to set
-       */
+
       public void setEnableFalse()
       {
             this.isEnable = false;
       }
 
-      /**
-       * @param isEnable the isEnable to set
-       */
+
       public void setEnableTrue()
       {
             this.isEnable = true;

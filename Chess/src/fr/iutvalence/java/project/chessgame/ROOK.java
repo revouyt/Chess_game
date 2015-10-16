@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Une pièce de tour
- */
+
 public class ROOK extends AbstractPiece
 {
       /**
@@ -15,11 +13,7 @@ public class ROOK extends AbstractPiece
        */
       private final int[][] listPosition = { { 1, 0 }, { 0, -1 }, { -1, 0 }, { 0, 1 } };
 
-      /**
-       * Créer une tour de couleur donnée
-       *
-       * @param couleur La couleur du tour
-       */
+
       public ROOK(ColorEnum couleur)
       {
             super(couleur);
@@ -34,14 +28,7 @@ public class ROOK extends AbstractPiece
             }
       }
 
-      /**
-       * Détermine les différents movements possible à partir d'une position de
-       * départ donnée
-       *
-       * @param positionDepart La position actuelle de la pièce
-       * @return Une liste de tout les déplacements possible à partir d'une
-       *         position
-       */
+
       @Override
       public List<Position> possibleMovements(Position positionDepart)
       {

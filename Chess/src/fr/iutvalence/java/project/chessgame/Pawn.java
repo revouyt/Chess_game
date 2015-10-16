@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Une pièce de pion
- */
+
 public class Pawn extends AbstractPiece
 {
       /**
@@ -22,11 +20,7 @@ public class Pawn extends AbstractPiece
        */
       private final int[][] listPosition2 = { { 1, 1 }, { 1, -1 } };
 
-      /**
-       * Créer un pion de couleur donnée
-       *
-       * @param couleur La couleur du pion
-       */
+
       public Pawn(ColorEnum couleur)
       {
             super(couleur);
@@ -127,10 +121,7 @@ public class Pawn extends AbstractPiece
             return possibleMovement;
       }
 
-      /**
-       * @see java.lang.Object#toString()
-       */
-      @Override
+
       public String toString()
       {
             return "P" + super.toString();

@@ -100,7 +100,6 @@ public class FieldPlayerGUI extends JFrame implements ActionListener
       @Override
       public void actionPerformed(ActionEvent e)
       {
-            // NOTHING TO DO
-
+            
       }
 }

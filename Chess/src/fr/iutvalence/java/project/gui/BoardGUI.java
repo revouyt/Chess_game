@@ -23,12 +23,10 @@ import fr.iutvalence.java.project.chessgame.PieceType;
 import fr.iutvalence.java.project.chessgame.Position;
 
 
-/**
- * Créer et afficher l'échiquier
- */
+
 public class BoardGUI extends JPanel implements ActionListener
 {
-      // private PieceGUI images = null;
+
 
       public static HashMap<Position, SquareButton> buttonsPosition = new HashMap<Position, SquareButton>();
 
@@ -42,17 +40,13 @@ public class BoardGUI extends JPanel implements ActionListener
 
       public static JFrame PopUpWin;
 
-      /**
-       * @return the lastImage
-       */
+
       public static Image getLastImage()
       {
             return lastImage;
       }
 
-      /**
-       * @return the lastPiece
-       */
+
       public static AbstractPiece getLastPiece()
       {
             return lastPiece;
@@ -63,25 +57,19 @@ public class BoardGUI extends JPanel implements ActionListener
             return BoardGUI.lastPosition;
       }
 
-      /**
-       * @param lastImage the lastImage to set
-       */
+
       public static void setLastImage(Image lastImage)
       {
             BoardGUI.lastImage = lastImage;
       }
 
-      /**
-       * @param lastPiece the lastPiece to set
-       */
+
       public static void setLastPiece(AbstractPiece lastPiece)
       {
             BoardGUI.lastPiece = lastPiece;
       }
 
-      /**
-       * @param lastPosition the lastPosition to set
-       */
+
       public static void setLastPosition(Position lastPosition)
       {
             BoardGUI.lastPosition = lastPosition;

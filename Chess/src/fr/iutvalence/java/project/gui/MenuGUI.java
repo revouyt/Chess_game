@@ -122,6 +122,6 @@ public class MenuGUI extends JFrame implements ActionListener
       @Override
       public void actionPerformed(ActionEvent e)
       {
-            // NOTHING TO DO
+
       }
 }

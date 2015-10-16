@@ -112,65 +112,49 @@ public class Movement
             }
       }
 
-      /**
-       * @return the finalPosition
-       */
+
       public Position getFinalPosition()
       {
             return finalPosition;
       }
 
-      /**
-       * @return the finalPositionImage
-       */
+
       public Image getFinalPositionImage()
       {
             return finalPositionImage;
       }
 
-      /**
-       * @return the finalPositionPiece
-       */
+
       public AbstractPiece getFinalPositionPiece()
       {
             return finalPositionPiece;
       }
 
-      /**
-       * @return the finalPositionTour
-       */
+
       public Position getFinalPositionTour()
       {
             return finalPositionTour;
       }
 
-      /**
-       * @return the initialPosition
-       */
+
       public Position getInitialPosition()
       {
             return initialPosition;
       }
 
-      /**
-       * @return the initialPositionImage
-       */
+
       public Image getInitialPositionImage()
       {
             return initialPositionImage;
       }
 
-      /**
-       * @return the initialPositionPiece
-       */
+
       public AbstractPiece getInitialPositionPiece()
       {
             return initialPositionPiece;
       }
 
-      /**
-       * @return the initialPositionTour
-       */
+
       public Position getInitialPositionTour()
       {
             return initialPositionTour;

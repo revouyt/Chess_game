@@ -110,7 +110,6 @@ public class SettingGUI extends JFrame implements ActionListener
       @Override
       public void actionPerformed(ActionEvent arg0)
       {
-            // NOTHING TODO
 
       }
 }
