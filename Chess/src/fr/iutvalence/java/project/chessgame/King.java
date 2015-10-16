@@ -6,29 +6,19 @@ import java.util.HashMap;
 import java.util.List;
 
 
-/**
- * Une pièce de roi
- */
+
 public class King extends AbstractPiece
 {
-      /**
-       * position de roque
-       */
+
       public final static Position ROQUE1 = new Position(0, 2);
 
-      /**
-       * position de roque
-       */
+
       public final static Position ROQUE2 = new Position(0, 6);
 
-      /**
-       * position de roque
-       */
+
       public final static Position ROQUE3 = new Position(7, 2);
 
-      /**
-       * position de roque
-       */
+
       public final static Position ROQUE4 = new Position(7, 6);
 
       private Position kingPosition;
@@ -52,11 +42,7 @@ public class King extends AbstractPiece
 
       private final int[][] listPositionRoqueDroite = { { 0, 2 } };
 
-      /**
-       * Créer un roi de couleur donnée
-       *
-       * @param couleur La couleur du roi
-       */
+
       public King(ColorEnum couleur)
       {
             super(couleur);
@@ -83,12 +69,7 @@ public class King extends AbstractPiece
             return this.kingPosition;
       }
 
-      /**
-       * Determine if there is check
-       *
-       * @param position the position of the king
-       * @return true if the square is under attack
-       */
+
       public boolean isCheck(Position position)
       {
             Square squareTest;
@@ -218,14 +199,7 @@ public class King extends AbstractPiece
             return false;
       }
 
-      /**
-       * Détermine les différents movements possible à partir d'une position de
-       * départ donnée
-       *
-       * @param positionDepart La position actuelle de la pièce
-       * @return Une liste de tout les déplacements possible à partir d'une
-       *         position
-       */
+
       @Override
       public List<Position> possibleMovements(Position positionDepart)
       {

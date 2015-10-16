@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Une pièce de cavalier
- */
+
 public class Knight extends AbstractPiece
 {
       /**
@@ -15,11 +13,7 @@ public class Knight extends AbstractPiece
        */
       private final int[][] listPosition = { { 2, -1 }, { 2, 1 }, { -2, -1 }, { -2, 1 }, { 1, -2 }, { 1, 2 }, { -1, -2 }, { -1, 2 } };
 
-      /**
-       * Créer un cavalier de couleur donnée
-       *
-       * @param couleur La couleur du cavalier
-       */
+
       public Knight(ColorEnum couleur)
       {
             super(couleur);
@@ -34,14 +28,7 @@ public class Knight extends AbstractPiece
             }
       }
 
-      /**
-       * Détermine les différents movements possible à partir d'une position de
-       * départ donnée
-       *
-       * @param positionDepart La position actuelle de la pièce
-       * @return Une liste de tout les déplacements possible à partir d'une
-       *         position
-       */
+
       @Override
       public List<Position> possibleMovements(Position positionDepart)
       {
