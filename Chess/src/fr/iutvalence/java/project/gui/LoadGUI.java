@@ -58,12 +58,6 @@ public class LoadGUI extends JFrame implements ActionListener
             splitButtons.setDividerSize(2);
             splitButtons.setDividerLocation(350);
 
-            // JSplitPane splitPane1 = new
-            // JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-            // pane1, saves);
-            // splitPane1.setDividerSize(2);
-            // splitPane1.setDividerLocation(50);
-
             JSplitPane splitPane3 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, saves, splitButtons);
             splitPane3.setDividerSize(0);
             splitPane3.setDividerLocation(200);

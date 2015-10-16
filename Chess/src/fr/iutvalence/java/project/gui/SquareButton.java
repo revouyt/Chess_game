@@ -54,10 +54,7 @@ public class SquareButton extends JButton
       @Override
       protected void paintComponent(Graphics g)
       {
-            /*
-             * if (getModel().isPressed()) { g.setColor(pressedBackgroundColor);
-             * } else
-             */
+
             super.paintComponent(g);
             if (getModel().isRollover())
             {
