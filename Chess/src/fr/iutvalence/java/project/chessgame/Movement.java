@@ -98,7 +98,6 @@ public class Movement
                         this.Tour = PieceGUI.piecesImage.get(ListPieces.WHITE_ROOK);
                         break;
                   default:
-                        // osef
                         this.initialPosition = new Position(0, 4);
                         this.finalPosition = King.ROQUE1;
                         this.initialPositionTour = new Position(0, 0);

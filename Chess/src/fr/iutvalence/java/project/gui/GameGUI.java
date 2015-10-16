@@ -97,7 +97,7 @@ public class GameGUI extends JFrame implements ActionListener
 
             // Affichage de l'echiquier
             this.boardGui = new BoardGUI(this);
-            this.boardGui.setLayout(new GridLayout(Echiquier.NOMBRE_DE_LIGNES, Echiquier.NOMBRE_DE_COLONNES));
+            this.boardGui.setLayout(new GridLayout(Echiquier.NOMBRE_DE_CASES_PAR_LIGNES, Echiquier.NOMBRE_DE_CASES_PAR_COLONNES));
             this.add(boardGui);
 
             quitLoad.setLayout(new GridLayout(4, 0));

@@ -14,9 +14,6 @@ public abstract class AbstractPiece
 
       protected ListPieces pieceName;
 
-      /**
-       * La couleur de la pièce
-       */
       protected final ColorEnum pieceCouleur;
 
       /**
@@ -35,29 +32,19 @@ public abstract class AbstractPiece
             this.hasAlreadyMove = false;
       }
 
-      /**
-       * Obtenir le nom de la piece
-       *
-       * @return le nom
-       */
+      
       public ListPieces getPieceName()
       {
             return this.pieceName;
       }
 
-      /**
-       * Obtenir le type de la piece
-       *
-       * @return le type
-       */
+     
       public PieceType getPieceType()
       {
             return this.pieceType;
       }
 
-      /**
-       * @return the hasAlreadyMove
-       */
+      
       public boolean isHasAlreadyMove()
       {
             return hasAlreadyMove;
@@ -68,19 +55,13 @@ public abstract class AbstractPiece
             this.hasAlreadyMove = false;
       }
 
-      /**
-       * This piece has moved
-       */
+      
       public void itMoved()
       {
             this.hasAlreadyMove = true;
       }
 
-      /**
-       * Obtenir la couleur de la piece
-       *
-       * @return la couleur de la piece
-       */
+     
       public ColorEnum obtenirCouleur()
       {
             return this.pieceCouleur;

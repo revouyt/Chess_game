@@ -5,20 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-/**
- * Représente un échiquier
- */
+
 public class Echiquier
 {
-      /**
-       * Le nombre de cases par ligne
-       */
-      public static final int NOMBRE_DE_LIGNES = 8;
 
-      /**
-       * Le nombre de cases par colonne
-       */
-      public static final int NOMBRE_DE_COLONNES = 8;
+      public static final int NOMBRE_DE_CASES_PAR_LIGNES = 8;
+
+
+      public static final int NOMBRE_DE_CASES_PAR_COLONNES = 8;
 
       /**
        * Les cases de l'échiquier
@@ -59,14 +53,12 @@ public class Echiquier
             this.creerEchiquier();
       }
 
-      /**
-       * Création de l'échiquier
-       */
+
       private void creerEchiquier()
       {
-            for (int numeroDeLigne = 0; numeroDeLigne < NOMBRE_DE_LIGNES; numeroDeLigne++)
+            for (int numeroDeLigne = 0; numeroDeLigne < NOMBRE_DE_CASES_PAR_LIGNES; numeroDeLigne++)
             {
-                  for (int numeroDeColonne = 0; numeroDeColonne < NOMBRE_DE_COLONNES; numeroDeColonne++)
+                  for (int numeroDeColonne = 0; numeroDeColonne < NOMBRE_DE_CASES_PAR_COLONNES; numeroDeColonne++)
                   {
                         if ((numeroDeLigne + numeroDeColonne) % 2 == 0)
                         {
@@ -113,17 +105,13 @@ public class Echiquier
             return pieces;
       }
 
-      /**
-       * @return the blackKing
-       */
+
       public King getBlackKing()
       {
             return blackKing;
       }
 
-      /**
-       * @return the whiteKing
-       */
+
       public King getWhiteKing()
       {
             return whiteKing;
@@ -152,9 +140,7 @@ public class Echiquier
             return square.get(position).getPiece();
       }
 
-      /**
-       * Posage de toutes les pièces à leurs positions d'origine
-       */
+
       private void poserPieces()
       {
             Echiquier.poserPiece(this, new Position(0, 0), new ROOK(ColorEnum.BLACK));
@@ -167,7 +153,7 @@ public class Echiquier
             Echiquier.poserPiece(this, new Position(0, 6), new Knight(ColorEnum.BLACK));
             Echiquier.poserPiece(this, new Position(0, 7), new ROOK(ColorEnum.BLACK));
 
-            for (int numeroDeColonne = 0; numeroDeColonne < NOMBRE_DE_COLONNES; numeroDeColonne++)
+            for (int numeroDeColonne = 0; numeroDeColonne < NOMBRE_DE_CASES_PAR_COLONNES; numeroDeColonne++)
             {
                   Echiquier.poserPiece(this, new Position(1, numeroDeColonne), new Pawn(ColorEnum.BLACK));
                   Echiquier.poserPiece(this, new Position(6, numeroDeColonne), new Pawn(ColorEnum.WHITE));

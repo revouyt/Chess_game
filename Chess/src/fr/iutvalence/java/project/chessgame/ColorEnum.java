@@ -6,14 +6,9 @@ package fr.iutvalence.java.project.chessgame;
  */
 public enum ColorEnum
 {
-      /**
-       * La couleur blanche
-       */
+      
       WHITE,
-
-      /**
-       * La couleur noire
-       */
+     
       BLACK;
 
 }

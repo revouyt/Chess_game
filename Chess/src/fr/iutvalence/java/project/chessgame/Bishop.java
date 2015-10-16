@@ -15,11 +15,7 @@ public class Bishop extends AbstractPiece
        */
       private final int[][] listPosition = { { 1, 1 }, { 1, -1 }, { -1, -1 }, { -1, 1 } };
 
-      /**
-       * Créer un fou de couleur donnée
-       *
-       * @param couleur La couleur du fou
-       */
+      
       public Bishop(ColorEnum couleur)
       {
             super(couleur);
@@ -55,7 +51,7 @@ public class Bishop extends AbstractPiece
                   {
                         i = positionDepart.obtenirNumeroDeLigne() + direction[0] * compteurDirection;
                         j = positionDepart.obtenirNumeroDeColonne() + direction[1] * compteurDirection;
-                        if (i >= 0 && i < Echiquier.NOMBRE_DE_LIGNES && j < Echiquier.NOMBRE_DE_COLONNES && j >= 0)
+                        if (i >= 0 && i < Echiquier.NOMBRE_DE_CASES_PAR_LIGNES && j < Echiquier.NOMBRE_DE_CASES_PAR_COLONNES && j >= 0)
                         {
                               positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                               if (positionDeFin.getPiece() != null)
@@ -77,10 +73,7 @@ public class Bishop extends AbstractPiece
             return possibleMovement;
       }
 
-      /**
-       * @see java.lang.Object#toString()
-       */
-      @Override
+      
       public String toString()
       {
             return "F" + super.toString();
