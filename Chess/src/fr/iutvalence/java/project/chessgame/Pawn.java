@@ -30,14 +30,14 @@ public class Pawn extends AbstractPiece
       public Pawn(ColorEnum couleur)
       {
             super(couleur);
-            this.Piecetype = PieceType.PAWN;
+            this.pieceType = PieceType.PAWN;
             if (couleur == ColorEnum.BLACK)
             {
-                  this.PieceName = ListPieces.BLACK_PAWN;
+                  this.pieceName = ListPieces.BLACK_PAWN;
             }
             else
             {
-                  this.PieceName = ListPieces.WHITE_PAWN;
+                  this.pieceName = ListPieces.WHITE_PAWN;
             }
       }
 
@@ -59,7 +59,7 @@ public class Pawn extends AbstractPiece
             int i, j;
             for (int[] direction : listPosition)
             {
-                  if (this.couleur == ColorEnum.BLACK)
+                  if (this.pieceCouleur == ColorEnum.BLACK)
                   {
                         i = positionDepart.obtenirNumeroDeLigne() + direction[0];
                   }
@@ -78,7 +78,7 @@ public class Pawn extends AbstractPiece
                         else
                         {
                               possibleMovement.add(newPosition);
-                              if (this.couleur == ColorEnum.BLACK)
+                              if (this.pieceCouleur == ColorEnum.BLACK)
                               {
                                     i = positionDepart.obtenirNumeroDeLigne() + 2;
                               }
@@ -99,7 +99,7 @@ public class Pawn extends AbstractPiece
             }
             for (int[] direction2 : listPosition2)
             {
-                  if (this.couleur == ColorEnum.BLACK)
+                  if (this.pieceCouleur == ColorEnum.BLACK)
                   {
                         i = positionDepart.obtenirNumeroDeLigne() + direction2[0];
                   }
@@ -117,7 +117,7 @@ public class Pawn extends AbstractPiece
                         }
                         else
                         {
-                              if (positionDeFin.getPiece().obtenirCouleur() != this.couleur)
+                              if (positionDeFin.getPiece().obtenirCouleur() != this.pieceCouleur)
                               {
                                     possibleMovement.add(newPosition);
                               }

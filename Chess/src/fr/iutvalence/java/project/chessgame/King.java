@@ -61,14 +61,14 @@ public class King extends AbstractPiece
       {
             super(couleur);
             this.hasAlreadyMove = false;
-            this.Piecetype = PieceType.KING;
+            this.pieceType = PieceType.KING;
             if (couleur == ColorEnum.BLACK)
             {
-                  this.PieceName = ListPieces.BLACK_KING;
+                  this.pieceName = ListPieces.BLACK_KING;
             }
             else
             {
-                  this.PieceName = ListPieces.WHITE_KING;
+                  this.pieceName = ListPieces.WHITE_KING;
             }
       }
 
@@ -94,7 +94,7 @@ public class King extends AbstractPiece
             Square squareTest;
             int i;
             int j;
-            if (this.couleur == ColorEnum.BLACK)
+            if (this.pieceCouleur == ColorEnum.BLACK)
             {
                   /* boucle-test des Pions */
                   for (int[] direction1 : this.listPositionPionBlanc)
@@ -151,7 +151,7 @@ public class King extends AbstractPiece
                                     if (squareTest.getPiece().getPieceType() == PieceType.BISHOP
                                                 || squareTest.getPiece().getPieceType() == PieceType.QUEEN)
                                     {
-                                          if (squareTest.getPiece().obtenirCouleur() != this.couleur)
+                                          if (squareTest.getPiece().obtenirCouleur() != this.pieceCouleur)
                                           {
                                                 return true;
                                           }
@@ -181,7 +181,7 @@ public class King extends AbstractPiece
                                     if (squareTest.getPiece().getPieceType() == PieceType.ROOK
                                                 || squareTest.getPiece().getPieceType() == PieceType.QUEEN)
                                     {
-                                          if (squareTest.getPiece().obtenirCouleur() != this.couleur)
+                                          if (squareTest.getPiece().obtenirCouleur() != this.pieceCouleur)
                                           {
                                                 return true;
                                           }
@@ -207,7 +207,7 @@ public class King extends AbstractPiece
                         {
                               if (squareTest.getPiece().getPieceType() == PieceType.KNIGHT)
                               {
-                                    if (squareTest.getPiece().obtenirCouleur() != this.couleur)
+                                    if (squareTest.getPiece().obtenirCouleur() != this.pieceCouleur)
                                     {
                                           return true;
                                     }
@@ -248,7 +248,7 @@ public class King extends AbstractPiece
                               if (positionDeFin.getPiece() != null)
 
                               {
-                                    if (positionDeFin.getPiece().obtenirCouleur() != this.couleur)
+                                    if (positionDeFin.getPiece().obtenirCouleur() != this.pieceCouleur)
                                     {
 
                                           possibleMovement.add(newPosition);

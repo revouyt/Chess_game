@@ -23,14 +23,14 @@ public class Bishop extends AbstractPiece
       public Bishop(ColorEnum couleur)
       {
             super(couleur);
-            this.Piecetype = PieceType.BISHOP;
+            this.pieceType = PieceType.BISHOP;
             if (couleur == ColorEnum.BLACK)
             {
-                  this.PieceName = ListPieces.BLACK_BISHOP;
+                  this.pieceName = ListPieces.BLACK_BISHOP;
             }
             else
             {
-                  this.PieceName = ListPieces.WHITE_BISHOP;
+                  this.pieceName = ListPieces.WHITE_BISHOP;
             }
       }
 
@@ -60,7 +60,7 @@ public class Bishop extends AbstractPiece
                               positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                               if (positionDeFin.getPiece() != null)
                               {
-                                    if (positionDeFin.getPiece().obtenirCouleur() == this.couleur)
+                                    if (positionDeFin.getPiece().obtenirCouleur() == this.pieceCouleur)
                                     {
                                           break;
                                     }

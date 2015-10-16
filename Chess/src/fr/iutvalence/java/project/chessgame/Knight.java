@@ -23,14 +23,14 @@ public class Knight extends AbstractPiece
       public Knight(ColorEnum couleur)
       {
             super(couleur);
-            this.Piecetype = PieceType.KNIGHT;
+            this.pieceType = PieceType.KNIGHT;
             if (couleur == ColorEnum.BLACK)
             {
-                  this.PieceName = ListPieces.BLACK_KNIGHT;
+                  this.pieceName = ListPieces.BLACK_KNIGHT;
             }
             else
             {
-                  this.PieceName = ListPieces.WHITE_KNIGHT;
+                  this.pieceName = ListPieces.WHITE_KNIGHT;
             }
       }
 
@@ -61,7 +61,7 @@ public class Knight extends AbstractPiece
 
                         if (positionDeFin.getPiece() != null)
                         {
-                              if (positionDeFin.getPiece().obtenirCouleur() == this.couleur)
+                              if (positionDeFin.getPiece().obtenirCouleur() == this.pieceCouleur)
                               {
                                     continue;
                               }

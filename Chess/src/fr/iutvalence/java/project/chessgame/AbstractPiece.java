@@ -9,20 +9,15 @@ import java.util.List;
  */
 public abstract class AbstractPiece
 {
-      /**
-       * Le type de la pièce
-       */
-      protected PieceType Piecetype;
 
-      /**
-       * Le nom de la pièce
-       */
-      protected ListPieces PieceName;
+      protected PieceType pieceType;
+
+      protected ListPieces pieceName;
 
       /**
        * La couleur de la pièce
        */
-      protected final ColorEnum couleur;
+      protected final ColorEnum pieceCouleur;
 
       /**
        * Default : 0 when it hasn't moved yet, 1 when it already moved
@@ -36,7 +31,7 @@ public abstract class AbstractPiece
        */
       protected AbstractPiece(ColorEnum couleur)
       {
-            this.couleur = couleur;
+            this.pieceCouleur = couleur;
             this.hasAlreadyMove = false;
       }
 
@@ -47,7 +42,7 @@ public abstract class AbstractPiece
        */
       public ListPieces getPieceName()
       {
-            return this.PieceName;
+            return this.pieceName;
       }
 
       /**
@@ -57,7 +52,7 @@ public abstract class AbstractPiece
        */
       public PieceType getPieceType()
       {
-            return this.Piecetype;
+            return this.pieceType;
       }
 
       /**
@@ -88,7 +83,7 @@ public abstract class AbstractPiece
        */
       public ColorEnum obtenirCouleur()
       {
-            return this.couleur;
+            return this.pieceCouleur;
       }
 
       /**
@@ -107,6 +102,6 @@ public abstract class AbstractPiece
       @Override
       public String toString()
       {
-            return this.couleur.toString();
+            return this.pieceCouleur.toString();
       }
 }

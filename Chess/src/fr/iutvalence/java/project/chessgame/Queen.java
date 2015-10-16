@@ -24,14 +24,14 @@ public class Queen extends AbstractPiece
       public Queen(ColorEnum couleur)
       {
             super(couleur);
-            this.Piecetype = PieceType.QUEEN;
+            this.pieceType = PieceType.QUEEN;
             if (couleur == ColorEnum.BLACK)
             {
-                  this.PieceName = ListPieces.BLACK_QUEEN;
+                  this.pieceName = ListPieces.BLACK_QUEEN;
             }
             else
             {
-                  this.PieceName = ListPieces.WHITE_QUEEN;
+                  this.pieceName = ListPieces.WHITE_QUEEN;
             }
       }
 
@@ -61,7 +61,7 @@ public class Queen extends AbstractPiece
                               positionDeFin = Echiquier.square.get(newPosition = new Position(i, j));
                               if (positionDeFin.getPiece() != null)
                               {
-                                    if (positionDeFin.getPiece().obtenirCouleur() == this.couleur)
+                                    if (positionDeFin.getPiece().obtenirCouleur() == this.pieceCouleur)
                                     {
                                           break;
                                     }
