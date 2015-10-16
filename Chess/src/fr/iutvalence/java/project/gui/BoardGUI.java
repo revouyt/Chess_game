@@ -591,82 +591,27 @@ public class BoardGUI extends JPanel implements ActionListener
             {
                   if (this.theUserInterface.getBoard().getAllPieces(ColorEnum.BLACK).containsKey(currentPiece.getPosition()))
                   {
-                        // King blackKing =
-                        // this.theUserInterface.getBoard().getBlackKing();
-                        // if (blackKing.isCheck(blackKing.getKingPosition()))
-                        // {
-                        //
-                        // Thread t = new Thread()
-                        // {
-                        // @Override
-                        // public void run()
-                        // {
-                        // System.out.println(currentPiece != null);
-                        // System.out.println(Game.board != null);
-                        // System.out.println(Game.userInterface.getTheGame() !=
-                        // null);
-                        // if (Game.canSomeOneHelp(ColorEnum.WHITE, Game.board,
-                        // Game.userInterface.getTheGame()).contains(
-                        // currentPiece.getPosition()))
-                        // {
-                        // BoardGUI.lastPiece =
-                        // Echiquier.square.get(currentPiece.getPosition()).getPiece();
-                        // BoardGUI.lastPosition = currentPiece.getPosition();
-                        // BoardGUI.lastImage = currentPiece.getPiece();
-                        // Game.userInterface.getBoardGui().showPossibleTarget(currentPiece);
-                        // }
-                        // }
-                        // };
-                        // SwingUtilities.invokeLater(t);
-                        // }
-                        // else
-                        // {
+                        
                         BoardGUI.lastPiece = Echiquier.square.get(currentPiece.getPosition()).getPiece();
                         BoardGUI.lastPosition = currentPiece.getPosition();
                         BoardGUI.lastImage = currentPiece.getPiece();
                         this.showPossibleTarget(currentPiece);
 
-                        // }
+                     
                   }
             }
-            // clic piece blanche, affichage positions
+           
             else
             {
                   if (this.theUserInterface.getBoard().getAllPieces(ColorEnum.WHITE).containsKey(currentPiece.getPosition()))
                   {
-                        // King whiteKing =
-                        // this.theUserInterface.getBoard().getBlackKing();
-                        // if (whiteKing.isCheck(whiteKing.getKingPosition()))
-                        // {
-                        //
-                        // Thread t = new Thread()
-                        // {
-                        // @Override
-                        // public void run()
-                        // {
-                        // System.out.println(currentPiece != null);
-                        // if (Game.canSomeOneHelp(ColorEnum.WHITE, Game.board,
-                        // Game.userInterface.getTheGame()).contains(
-                        // currentPiece.getPosition()))
-                        // {
-                        // BoardGUI.lastPiece =
-                        // Echiquier.square.get(currentPiece.getPosition()).getPiece();
-                        // BoardGUI.lastPosition = currentPiece.getPosition();
-                        // BoardGUI.lastImage = currentPiece.getPiece();
-                        // Game.userInterface.getBoardGui().showPossibleTarget(currentPiece);
-                        // }
-                        // }
-                        // };
-                        // SwingUtilities.invokeLater(t);
-                        // }
-                        // else
-                        // {
+                        
                         BoardGUI.lastPiece = Echiquier.square.get(currentPiece.getPosition()).getPiece();
                         BoardGUI.lastPosition = currentPiece.getPosition();
                         BoardGUI.lastImage = currentPiece.getPiece();
                         this.showPossibleTarget(currentPiece);
 
-                        // }
+                      
                   }
             }
       }
